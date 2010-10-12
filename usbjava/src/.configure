@@ -1,0 +1,6 @@
+# enable or disable logging
+ch.ntb.usb/debug = true
+# set and configure individual loggers here
+# the format is: projectName/debug/<loggerX> = <logger name>/<log level>
+ch.ntb.usb/debug/logger0 = ch.ntb.usb/OFF
+ch.ntb.usb/debug/logger1 = ch.ntb.usb.test/INFO
