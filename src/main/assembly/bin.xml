@@ -1,0 +1,46 @@
+<assembly>
+
+    <formats>
+        <format>tar.gz</format>
+        <!-- uncomment to create the archive directory -->
+        <format>dir</format>
+        <!-- -->
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <moduleSets>
+         <moduleSet>
+             <includes>
+                 <include>usbjava2:jniusbjava</include>
+                 <include>usbjava2:libusbjava</include>
+                 <include>usbjava2:usbjava</include>
+             </includes>
+             <binaries>
+                 <outputDirectory>usbjava2/lib</outputDirectory>
+                 <unpack>false</unpack>
+                 <outputFileNameMapping>${module.artifactId}.${module.extension}</outputFileNameMapping>
+             </binaries>
+         </moduleSet>
+    </moduleSets>
+
+<!--
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>jusb2/lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+-->
+    <fileSets>
+        <fileSet>
+            <directory>src/main/resources/bin</directory>
+            <outputDirectory>usbjava2/bin</outputDirectory>
+            <lineEnding>unix</lineEnding>
+            <fileMode>0775</fileMode>
+            <includes>
+                <include>*</include>
+            </includes>
+        </fileSet>
+
+    </fileSets>
+
+</assembly>
