@@ -8,7 +8,7 @@
 package ch.ntb.usb.test.devices;
 
 import ch.ntb.usb.USB;
-import ch.ntb.usb.test.AbstractDeviceInfo;
+import ch.ntb.usb.demo.AbstractDeviceInfo;
 
 public class CY7C68013A extends AbstractDeviceInfo {
 

@@ -8,7 +8,6 @@
 package ch.ntb.usb.test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Properties;
@@ -22,7 +21,8 @@ import ch.ntb.usb.USB;
 import ch.ntb.usb.USBException;
 import ch.ntb.usb.Usb_Bus;
 import ch.ntb.usb.Utils;
-import ch.ntb.usb.test.AbstractDeviceInfo.TransferMode;
+import ch.ntb.usb.demo.AbstractDeviceInfo;
+import ch.ntb.usb.demo.AbstractDeviceInfo.TransferMode;
 
 public class MemoryLeakTest extends TestCase {
 

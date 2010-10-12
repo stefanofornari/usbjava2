@@ -7,7 +7,7 @@
  */
 package ch.ntb.usb.test.devices;
 
-import ch.ntb.usb.test.AbstractDeviceInfo;
+import ch.ntb.usb.demo.AbstractDeviceInfo;
 
 public class MousePlus extends AbstractDeviceInfo {
 

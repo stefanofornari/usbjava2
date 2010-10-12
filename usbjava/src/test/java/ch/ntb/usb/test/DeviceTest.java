@@ -24,7 +24,8 @@ import ch.ntb.usb.Usb_Bus;
 import ch.ntb.usb.Usb_Config_Descriptor;
 import ch.ntb.usb.Usb_Device_Descriptor;
 import ch.ntb.usb.Utils;
-import ch.ntb.usb.test.AbstractDeviceInfo.TransferMode;
+import ch.ntb.usb.demo.AbstractDeviceInfo;
+import ch.ntb.usb.demo.AbstractDeviceInfo.TransferMode;
 
 public class DeviceTest extends TestCase {
 

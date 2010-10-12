@@ -50,4 +50,4 @@ cd "$CURDIR"
 LANG=en_US.UTF-8
 
 echo "Using $JAVA_CMD"
-$JAVA_CMD -Djava.library.path="$CMD_HOME/lib" "$@" ch.ntb.usb.usbView.UsbView
+$JAVA_CMD -Djava.library.path="$CMD_HOME/lib" "$@" ch.ntb.usb.demo.UsbView
