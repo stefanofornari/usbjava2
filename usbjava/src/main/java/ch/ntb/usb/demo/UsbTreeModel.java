@@ -19,17 +19,17 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import ch.ntb.usb.LibusbJava;
-import ch.ntb.usb.Usb_Bus;
-import ch.ntb.usb.Usb_Config_Descriptor;
-import ch.ntb.usb.Usb_Device;
-import ch.ntb.usb.Usb_Device_Descriptor;
-import ch.ntb.usb.Usb_Endpoint_Descriptor;
-import ch.ntb.usb.Usb_Interface;
-import ch.ntb.usb.Usb_Interface_Descriptor;
+import ch.ntb.usb.UsbBus;
+import ch.ntb.usb.UsbConfigDescriptor;
+import ch.ntb.usb.UsbDevice;
+import ch.ntb.usb.UsbDeviceDescriptor;
+import ch.ntb.usb.UsbEndpointDescriptor;
+import ch.ntb.usb.UsbInterface;
+import ch.ntb.usb.UsbInterfaceDescriptor;
 
 public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 
-	private Usb_Bus rootBus;
+	private UsbBus rootBus;
 
 	private static final String USB_ROOT = "USB";
 
@@ -45,7 +45,7 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 	 * @param textArea
 	 *            the text area to which the data is written
 	 */
-	public UsbTreeModel(Usb_Bus rootBus, JTextArea textArea) {
+	public UsbTreeModel(UsbBus rootBus, JTextArea textArea) {
 		this.rootBus = rootBus;
 		this.textArea = textArea;
 	}
@@ -64,7 +64,7 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 		
 		if (parent instanceof String && ((String) parent).compareTo(USB_ROOT) == 0)
 		{
-			Usb_Bus curBus = rootBus;
+			UsbBus curBus = rootBus;
 			
 			for (int i = 0; curBus != null; curBus = curBus.getNext(), i++)
 			{
@@ -73,8 +73,8 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 			}
 		}
 			
-		else if (parent instanceof Usb_Bus) {
-			Usb_Device device = ((Usb_Bus) parent).getDevices();
+		else if (parent instanceof UsbBus) {
+			UsbDevice device = ((UsbBus) parent).getDevices();
 			int count = 0;
 			while (device != null) {
 				if (count == index)
@@ -83,30 +83,30 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 				device = device.getNext();
 			}
 			return null;
-		} else if (parent instanceof Usb_Device) {
-			Usb_Device dev = (Usb_Device) parent;
-			// return the Usb_Device_Descriptor at index 0
+		} else if (parent instanceof UsbDevice) {
+			UsbDevice dev = (UsbDevice) parent;
+			// return the UsbDeviceDescriptor at index 0
 			if (index == 0) {
 				return dev.getDescriptor();
 			}
-			Usb_Config_Descriptor[] confDescs = dev.getConfig();
+			UsbConfigDescriptor[] confDescs = dev.getConfig();
 			if (index >= confDescs.length + 1)
 				return null;
 			return confDescs[index - 1];
-		} else if (parent instanceof Usb_Config_Descriptor) {
-			Usb_Interface[] intDescs = ((Usb_Config_Descriptor) parent)
+		} else if (parent instanceof UsbConfigDescriptor) {
+			UsbInterface[] intDescs = ((UsbConfigDescriptor) parent)
 					.getInterface();
 			if (index >= intDescs.length)
 				return null;
 			return intDescs[index];
-		} else if (parent instanceof Usb_Interface) {
-			Usb_Interface_Descriptor[] altSettings = ((Usb_Interface) parent)
+		} else if (parent instanceof UsbInterface) {
+			UsbInterfaceDescriptor[] altSettings = ((UsbInterface) parent)
 					.getAltsetting();
 			if (index >= altSettings.length)
 				return null;
 			return altSettings[index];
-		} else if (parent instanceof Usb_Interface_Descriptor) {
-			Usb_Endpoint_Descriptor[] endpoints = ((Usb_Interface_Descriptor) parent)
+		} else if (parent instanceof UsbInterfaceDescriptor) {
+			UsbEndpointDescriptor[] endpoints = ((UsbInterfaceDescriptor) parent)
 					.getEndpoint();
 			if (index >= endpoints.length)
 				return null;
@@ -124,7 +124,7 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 		{
 			int count = 0;
 			
-			Usb_Bus curBus = rootBus;
+			UsbBus curBus = rootBus;
 			
 			for (; curBus != null; curBus = curBus.getNext())
 			{
@@ -134,23 +134,23 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 			return count;
 			
 		}
-		else if (parent instanceof Usb_Bus) {
-			Usb_Device device = ((Usb_Bus) parent).getDevices();
+		else if (parent instanceof UsbBus) {
+			UsbDevice device = ((UsbBus) parent).getDevices();
 			int count = 0;
 			while (device != null) {
 				count++;
 				device = device.getNext();
 			}
 			return count;
-		} else if (parent instanceof Usb_Device) {
-			// add the Usb_Device_Descriptor
-			return ((Usb_Device) parent).getConfig().length + 1;
-		} else if (parent instanceof Usb_Config_Descriptor) {
-			return ((Usb_Config_Descriptor) parent).getInterface().length;
-		} else if (parent instanceof Usb_Interface) {
-			return ((Usb_Interface) parent).getAltsetting().length;
-		} else if (parent instanceof Usb_Interface_Descriptor) {
-			return ((Usb_Interface_Descriptor) parent).getEndpoint().length;
+		} else if (parent instanceof UsbDevice) {
+			// add the UsbDeviceDescriptor
+			return ((UsbDevice) parent).getConfig().length + 1;
+		} else if (parent instanceof UsbConfigDescriptor) {
+			return ((UsbConfigDescriptor) parent).getInterface().length;
+		} else if (parent instanceof UsbInterface) {
+			return ((UsbInterface) parent).getAltsetting().length;
+		} else if (parent instanceof UsbInterfaceDescriptor) {
+			return ((UsbInterfaceDescriptor) parent).getEndpoint().length;
 		}
 		return 0;
 	}
@@ -190,7 +190,7 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 	 * The only event raised by this model is TreeStructureChanged with the root
 	 * as path, i.e. the whole tree has changed.
 	 */
-	protected void fireTreeStructureChanged(Usb_Bus newRootBus) {
+	protected void fireTreeStructureChanged(UsbBus newRootBus) {
 		rootBus = newRootBus;
 		int len = treeModelListeners.size();
 		TreeModelEvent e = new TreeModelEvent(this, new Object[] { newRootBus });
@@ -202,22 +202,22 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 	public void valueChanged(TreeSelectionEvent e) {
 		JTree tree = (JTree) e.getSource();
 		Object component = tree.getLastSelectedPathComponent();
-		if (component instanceof Usb_Bus) {
-			Usb_Bus bus = (Usb_Bus) component;
+		if (component instanceof UsbBus) {
+			UsbBus bus = (UsbBus) component;
 			StringBuffer sb = new StringBuffer("Usb_Bus\n");
 			sb.append("\tdirname: " + bus.getDirname() + "\n");
 			sb.append("\tlocation: 0x" + Long.toHexString(bus.getLocation())
 					+ "\n");
 			textArea.setText(sb.toString());
-		} else if (component instanceof Usb_Device) {
-			Usb_Device device = (Usb_Device) component;
+		} else if (component instanceof UsbDevice) {
+			UsbDevice device = (UsbDevice) component;
 			StringBuffer sb = new StringBuffer("Usb_Device\n");
 			sb.append("\tfilename: " + device.getFilename() + "\n");
 			sb.append("\tdevnum: " + device.getDevnum() + "\n");
 			sb.append("\tnum_children: " + device.getNumChildren() + "\n");
 			textArea.setText(sb.toString());
-		} else if (component instanceof Usb_Device_Descriptor) {
-			Usb_Device_Descriptor devDesc = (Usb_Device_Descriptor) component;
+		} else if (component instanceof UsbDeviceDescriptor) {
+			UsbDeviceDescriptor devDesc = (UsbDeviceDescriptor) component;
 			StringBuffer sb = new StringBuffer("Usb_Device_Descriptor\n");
 			sb.append("\tblenght: 0x"
 					+ Integer.toHexString(devDesc.getBLength() & 0xFF) + "\n");
@@ -262,11 +262,11 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 							+ Integer.toHexString(devDesc
 									.getBNumConfigurations() & 0xFF) + "\n");
 			// get device handle to retrieve string descriptors
-			Usb_Bus bus = rootBus;
+			UsbBus bus = rootBus;
 			while (bus != null) {
-				Usb_Device dev = bus.getDevices();
+				UsbDevice dev = bus.getDevices();
 				while (dev != null) {
-					Usb_Device_Descriptor tmpDevDesc = dev.getDescriptor();
+					UsbDeviceDescriptor tmpDevDesc = dev.getDescriptor();
 					if ((dev.getDescriptor() != null)
 							&& ((dev.getDescriptor().getIManufacturer() > 0)
 									|| (dev.getDescriptor().getIProduct() > 0) || (dev
@@ -312,8 +312,8 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 				bus = bus.getNext();
 			}
 			textArea.setText(sb.toString());
-		} else if (component instanceof Usb_Config_Descriptor) {
-			Usb_Config_Descriptor confDesc = (Usb_Config_Descriptor) component;
+		} else if (component instanceof UsbConfigDescriptor) {
+			UsbConfigDescriptor confDesc = (UsbConfigDescriptor) component;
 			StringBuffer sb = new StringBuffer("Usb_Config_Descriptor\n");
 			sb.append("\tblenght: 0x"
 					+ Integer.toHexString(confDesc.getBLength()) + "\n");
@@ -340,11 +340,11 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 					+ Integer.toHexString(confDesc.getExtralen()) + "\n");
 			sb.append("\textra: " + extraDescriptorToString(confDesc.getExtra()) + "\n");
 			// get device handle to retrieve string descriptors
-			Usb_Bus bus = rootBus;
+			UsbBus bus = rootBus;
 			while (bus != null) {
-				Usb_Device dev = bus.getDevices();
+				UsbDevice dev = bus.getDevices();
 				while (dev != null) {
-					Usb_Config_Descriptor[] tmpConfDesc = dev.getConfig();
+					UsbConfigDescriptor[] tmpConfDesc = dev.getConfig();
 					for (int i = 0; i < tmpConfDesc.length; i++) {
 						if ((tmpConfDesc.equals(confDesc))
 								&& (confDesc.getIConfiguration() > 0)) {
@@ -371,15 +371,15 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 				bus = bus.getNext();
 			}
 			textArea.setText(sb.toString());
-		} else if (component instanceof Usb_Interface) {
-			Usb_Interface int_ = (Usb_Interface) component;
+		} else if (component instanceof UsbInterface) {
+			UsbInterface int_ = (UsbInterface) component;
 			StringBuffer sb = new StringBuffer("Usb_Interface\n");
 			sb.append("\tnum_altsetting: 0x"
 					+ Integer.toHexString(int_.getNumAltsetting()) + "\n");
 			sb.append("\taltsetting: " + int_.getAltsetting() + "\n");
 			textArea.setText(sb.toString());
-		} else if (component instanceof Usb_Interface_Descriptor) {
-			Usb_Interface_Descriptor intDesc = (Usb_Interface_Descriptor) component;
+		} else if (component instanceof UsbInterfaceDescriptor) {
+			UsbInterfaceDescriptor intDesc = (UsbInterfaceDescriptor) component;
 			StringBuffer sb = new StringBuffer("Usb_Interface_Descriptor\n");
 			sb.append("\tblenght: 0x"
 					+ Integer.toHexString(intDesc.getBLength() & 0xFF) + "\n");
@@ -413,15 +413,15 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 					+ Integer.toHexString(intDesc.getExtralen()) + "\n");
 			sb.append("\textra: " + extraDescriptorToString(intDesc.getExtra()) + "\n");
 			// get device handle to retrieve string descriptors
-			Usb_Bus bus = rootBus;
+			UsbBus bus = rootBus;
 			while (bus != null) {
-				Usb_Device dev = bus.getDevices();
+				UsbDevice dev = bus.getDevices();
 				while (dev != null) {
-					Usb_Config_Descriptor[] confDescs = dev.getConfig();
+					UsbConfigDescriptor[] confDescs = dev.getConfig();
 					for (int i = 0; i < confDescs.length; i++) {
-						Usb_Interface[] ints = confDescs[i].getInterface();
+						UsbInterface[] ints = confDescs[i].getInterface();
 						for (int j = 0; j < ints.length; j++) {
-							Usb_Interface_Descriptor[] tmpIntDescs = ints[j]
+							UsbInterfaceDescriptor[] tmpIntDescs = ints[j]
 									.getAltsetting();
 							for (int k = 0; k < ints.length; k++) {
 								if (i < tmpIntDescs.length && tmpIntDescs[i].equals(intDesc)
@@ -450,8 +450,8 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 				bus = bus.getNext();
 			}
 			textArea.setText(sb.toString());
-		} else if (component instanceof Usb_Endpoint_Descriptor) {
-			Usb_Endpoint_Descriptor epDesc = (Usb_Endpoint_Descriptor) component;
+		} else if (component instanceof UsbEndpointDescriptor) {
+			UsbEndpointDescriptor epDesc = (UsbEndpointDescriptor) component;
 			StringBuffer sb = new StringBuffer("Usb_Endpoint_Descriptor\n");
 			sb.append("\tblenght: 0x"
 					+ Integer.toHexString(epDesc.getBLength() & 0xFF) + "\n");

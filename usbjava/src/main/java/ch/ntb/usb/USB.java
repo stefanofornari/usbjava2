@@ -184,7 +184,7 @@ public class USB {
 	 * @param busName
 	 *            optional name of the bus which can be used to distinguish
 	 *            multiple devices with the same vendor and product id.<br>
-	 *            see {@link Usb_Bus#getDirname()}
+	 *            see {@link UsbBus#getDirname()}
 	 * @param filename
 	 *            optional filename which can be used to distinguish multiple
 	 *            devices with the same vendor and product id.<br>
@@ -241,7 +241,7 @@ public class USB {
 	 * @param busName
 	 *            the name of the bus which can be used to distinguish multiple
 	 *            devices with the same vendor and product id.<br>
-	 *            see {@link Usb_Bus#getDirname()}
+	 *            see {@link UsbBus#getDirname()}
 	 * @param filename
 	 *            an optional filename which can be used to distinguish multiple
 	 *            devices with the same vendor and product id. see
@@ -286,19 +286,19 @@ public class USB {
 	}
 
 	/**
-	 * Returns the root {@link Usb_Bus} element.
+	 * Returns the root {@link UsbBus} element.
 	 * 
-	 * @return the root {@link Usb_Bus} element
+	 * @return the root {@link UsbBus} element
 	 * @throws USBException
 	 */
-	public static Usb_Bus getBus() throws USBException {
+	public static UsbBus getBus() throws USBException {
 		if (!initUSBDone) {
 			init();
 		}
 		LibusbJava.usb_find_busses();
 		LibusbJava.usb_find_devices();
 
-		Usb_Bus bus = LibusbJava.usb_get_busses();
+		UsbBus bus = LibusbJava.usb_get_busses();
 		if (bus == null) {
 			throw new USBException("LibusbJava.usb_get_busses(): "
 					+ LibusbJava.usb_strerror());

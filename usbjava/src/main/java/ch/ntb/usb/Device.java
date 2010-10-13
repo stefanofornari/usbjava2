@@ -48,7 +48,7 @@ public class Device {
 
 	private int resetTimeout = 2000;
 
-	private Usb_Device dev;
+	private UsbDevice dev;
 
 	protected Device(short idVendor, short idProduct) {
 		resetOnFirstOpen = false;
@@ -70,15 +70,15 @@ public class Device {
 		this.filename = filename;
 	}
 
-	private void updateMaxPacketSize(Usb_Device device) throws USBException {
+	private void updateMaxPacketSize(UsbDevice device) throws USBException {
 		setMaxPacketSize(-1);
-		Usb_Config_Descriptor[] confDesc = device.getConfig();
+		UsbConfigDescriptor[] confDesc = device.getConfig();
 		for (int i = 0; i < confDesc.length; i++) {
-			Usb_Interface[] int_ = confDesc[i].getInterface();
+			UsbInterface[] int_ = confDesc[i].getInterface();
 			for (int j = 0; j < int_.length; j++) {
-				Usb_Interface_Descriptor[] intDesc = int_[j].getAltsetting();
+				UsbInterfaceDescriptor[] intDesc = int_[j].getAltsetting();
 				for (int k = 0; k < intDesc.length; k++) {
-					Usb_Endpoint_Descriptor[] epDesc = intDesc[k].getEndpoint();
+					UsbEndpointDescriptor[] epDesc = intDesc[k].getEndpoint();
 					for (int l = 0; l < epDesc.length; l++) {
 						setMaxPacketSize(Math.max(epDesc[l].getWMaxPacketSize(), maxPacketSize));
 					}
@@ -96,16 +96,16 @@ public class Device {
 	 * <code>idProduct</code> are mandatory. The parameter <code>filename</code>
 	 * is optional.
 	 */
-	private Usb_Device initDevice(int idVendorParam, int idProductParam,
+	private UsbDevice initDevice(int idVendorParam, int idProductParam,
 			String busName, String filename) throws USBException {
-		Usb_Bus bus = USB.getBus();
+		UsbBus bus = USB.getBus();
 
-		Usb_Device device = null;
+		UsbDevice device = null;
 		// search for device
 		while (bus != null) {
 			device = bus.getDevices();
 			while (device != null) {
-				Usb_Device_Descriptor devDesc = device.getDescriptor();
+				UsbDeviceDescriptor devDesc = device.getDescriptor();
 				if (busName != null && filename != null) {
 					if (busName.compareTo(bus.getDirname()) == 0
 							&& filename.compareTo(device.getFilename()) == 0
@@ -167,7 +167,7 @@ public class Device {
 	 * @return the device descriptor associated with this device or
 	 *         <code>null</code>
 	 */
-	public Usb_Device_Descriptor getDeviceDescriptor() {
+	public UsbDeviceDescriptor getDeviceDescriptor() {
 		if (dev == null) {
 			return null;
 		}
@@ -182,7 +182,7 @@ public class Device {
 	 * @return the configuration descriptors associated with this device or
 	 *         <code>null</code>
 	 */
-	public Usb_Config_Descriptor[] getConfigDescriptors() {
+	public UsbConfigDescriptor[] getConfigDescriptors() {
 		if (dev == null) {
 			return null;
 		}
@@ -276,7 +276,7 @@ public class Device {
     /**
      * @param dev the dev to set
      */
-    public void setDev(Usb_Device dev) {
+    public void setDev(UsbDevice dev) {
         this.dev = dev;
     }
 
@@ -289,13 +289,13 @@ public class Device {
 	 * 
 	 * @param configuration
 	 *            the configuration, see
-	 *            {@link Usb_Config_Descriptor#getBConfigurationValue()}
+	 *            {@link UsbConfigDescriptor#getBConfigurationValue()}
 	 * @param interface_
 	 *            the interface, see
-	 *            {@link Usb_Interface_Descriptor#getBInterfaceNumber()}
+	 *            {@link UsbInterfaceDescriptor#getBInterfaceNumber()}
 	 * @param altinterface
 	 *            the alternate interface, see
-	 *            {@link Usb_Interface_Descriptor#getBAlternateSetting()}. If no
+	 *            {@link UsbInterfaceDescriptor#getBAlternateSetting()}. If no
 	 *            alternate interface must be set <i>-1</i> can be used.
 	 * @throws USBException
 	 */
@@ -865,7 +865,7 @@ public class Device {
 	 * Returns the optional filename which is set when there are multiple
 	 * devices with the same vendor and product id. See
 	 * {@link USB#getDevice(short, short, String, String)}. Use
-	 * {@link Usb_Device#getFilename()} to read the filename of a device.
+	 * {@link UsbDevice#getFilename()} to read the filename of a device.
 	 * 
 	 * @return the filename or null
 	 */
@@ -877,7 +877,7 @@ public class Device {
 	 * Returns the optional bus name which is set when there are multiple
 	 * devices with the same vendor and product id. See
 	 * {@link USB#getDevice(short, short, String, String)}. Use
-	 * {@link Usb_Bus#getDirname()} to read the name of a bus.
+	 * {@link UsbBus#getDirname()} to read the name of a bus.
 	 * 
 	 * @return the bus name or null
 	 */
@@ -886,12 +886,12 @@ public class Device {
 	}
 
 	/**
-	 * Returns the Usb_Device instance associated with this device. This value
+	 * Returns the UsbDevice instance associated with this device. This value
 	 * is only valid after opening the device.
 	 * 
-	 * @return the Usb_Device instance associated with this device.
+	 * @return the UsbDevice instance associated with this device.
 	 */
-	public Usb_Device getDevice() {
+	public UsbDevice getDevice() {
 		return dev;
 	}
 

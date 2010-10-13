@@ -29,12 +29,12 @@ import javax.swing.KeyStroke;
 import javax.swing.tree.TreePath;
 
 import ch.ntb.usb.LibusbJava;
-import ch.ntb.usb.Usb_Bus;
-import ch.ntb.usb.Usb_Config_Descriptor;
-import ch.ntb.usb.Usb_Device;
-import ch.ntb.usb.Usb_Device_Descriptor;
-import ch.ntb.usb.Usb_Endpoint_Descriptor;
-import ch.ntb.usb.Usb_Interface_Descriptor;
+import ch.ntb.usb.UsbBus;
+import ch.ntb.usb.UsbConfigDescriptor;
+import ch.ntb.usb.UsbDevice;
+import ch.ntb.usb.UsbDeviceDescriptor;
+import ch.ntb.usb.UsbEndpointDescriptor;
+import ch.ntb.usb.UsbInterfaceDescriptor;
 import ch.ntb.usb.demo.TestApp;
 import ch.ntb.usb.demo.TestDevice;
 import ch.ntb.usb.demo.AbstractDeviceInfo.TransferMode;
@@ -161,7 +161,7 @@ public class UsbView extends JFrame {
 							LibusbJava.usb_find_busses();
 							LibusbJava.usb_find_devices();
 
-							Usb_Bus bus = LibusbJava.usb_get_busses();
+							UsbBus bus = LibusbJava.usb_get_busses();
 							if (bus != null) {
 								treeModel.fireTreeStructureChanged(bus);
 								expandAll(usbTree);
@@ -184,7 +184,7 @@ public class UsbView extends JFrame {
 			LibusbJava.usb_find_busses();
 			LibusbJava.usb_find_devices();
 
-			Usb_Bus bus = LibusbJava.usb_get_busses();
+			UsbBus bus = LibusbJava.usb_get_busses();
 
 			treeModel = new UsbTreeModel(bus, jPropertiesArea);
 			usbTree = new JTree(treeModel);
@@ -202,7 +202,7 @@ public class UsbView extends JFrame {
 							TreePath path = tree.getPathForLocation(e.getX(), e
 									.getY());
 							if (path != null
-									&& (path.getLastPathComponent() instanceof Usb_Interface_Descriptor)) {
+									&& (path.getLastPathComponent() instanceof UsbInterfaceDescriptor)) {
 								usbTree.setSelectionPath(path);
 								testAppPopup.show(tree, e.getX(), e.getY());
 							}
@@ -220,7 +220,7 @@ public class UsbView extends JFrame {
 								TreePath path = tree.getPathForLocation(e
 										.getX(), e.getY());
 								if (path != null
-										&& (path.getLastPathComponent() instanceof Usb_Interface_Descriptor)) {
+										&& (path.getLastPathComponent() instanceof UsbInterfaceDescriptor)) {
 									usbTree.setSelectionPath(path);
 									testAppPopup.show(tree, e.getX(), e.getY());
 								}
@@ -248,25 +248,25 @@ public class UsbView extends JFrame {
 				JTree tree = (JTree) testAppPopup.getInvoker();
 				TreePath path = tree.getSelectionPath();
 				TreePath parent = path;
-				Usb_Endpoint_Descriptor[] endpoints = null;
+				UsbEndpointDescriptor[] endpoints = null;
 				int altinterface = -1;
 				int interface_ = -1;
 				int configuration = -1;
 				short vendorId = -1;
 				short productId = -1;
 				while (parent != null
-						&& !(parent.getLastPathComponent() instanceof Usb_Bus)) {
+						&& !(parent.getLastPathComponent() instanceof UsbBus)) {
 					Object usbObj = parent.getLastPathComponent();
-					if (usbObj instanceof Usb_Interface_Descriptor) {
-						Usb_Interface_Descriptor usbIntDesc = (Usb_Interface_Descriptor) usbObj;
+					if (usbObj instanceof UsbInterfaceDescriptor) {
+						UsbInterfaceDescriptor usbIntDesc = (UsbInterfaceDescriptor) usbObj;
 						endpoints = usbIntDesc.getEndpoint();
 						interface_ = usbIntDesc.getBInterfaceNumber();
 						altinterface = usbIntDesc.getBAlternateSetting();
-					} else if (usbObj instanceof Usb_Config_Descriptor) {
-						configuration = ((Usb_Config_Descriptor) usbObj)
+					} else if (usbObj instanceof UsbConfigDescriptor) {
+						configuration = ((UsbConfigDescriptor) usbObj)
 								.getBConfigurationValue();
-					} else if (usbObj instanceof Usb_Device) {
-						Usb_Device_Descriptor devDesc = ((Usb_Device) usbObj)
+					} else if (usbObj instanceof UsbDevice) {
+						UsbDeviceDescriptor devDesc = ((UsbDevice) usbObj)
 								.getDescriptor();
 						productId = devDesc.getIdProduct();
 						vendorId = devDesc.getIdVendor();
@@ -276,14 +276,14 @@ public class UsbView extends JFrame {
 				if (parent != null) {
 					// present a dialog to select in/out endpoint
 					// TODO: present dialog to select in/out endpoint
-					Usb_Endpoint_Descriptor[] outEPs = null;
+					UsbEndpointDescriptor[] outEPs = null;
 					int nofOutEPs = 0;
-					Usb_Endpoint_Descriptor[] inEPs = null;
+					UsbEndpointDescriptor[] inEPs = null;
 					int nofInEPs = 0;
 
 					if (endpoints != null) {
-						outEPs = new Usb_Endpoint_Descriptor[endpoints.length];
-						inEPs = new Usb_Endpoint_Descriptor[endpoints.length];
+						outEPs = new UsbEndpointDescriptor[endpoints.length];
+						inEPs = new UsbEndpointDescriptor[endpoints.length];
 						for (int i = 0; i < endpoints.length; i++) {
 							int epAddr = endpoints[i].getBEndpointAddress() & 0xFF;
 							if ((epAddr & 0x80) > 0) {
@@ -306,12 +306,12 @@ public class UsbView extends JFrame {
 						for (int i = 0; i < nofInEPs; i++) {
 							int type = inEPs[i].getBmAttributes() & 0x03;
 							switch (type) {
-							case Usb_Endpoint_Descriptor.USB_ENDPOINT_TYPE_BULK:
+							case UsbEndpointDescriptor.USB_ENDPOINT_TYPE_BULK:
 								testDevice.setInEPBulk(inEPs[i]
 										.getBEndpointAddress() & 0xff);
 								testDevice.setInMode(TransferMode.Bulk);
 								break;
-							case Usb_Endpoint_Descriptor.USB_ENDPOINT_TYPE_INTERRUPT:
+							case UsbEndpointDescriptor.USB_ENDPOINT_TYPE_INTERRUPT:
 								testDevice.setInEPInt(inEPs[i]
 										.getBEndpointAddress() & 0xff);
 								testDevice.setInMode(TransferMode.Interrupt);
@@ -325,12 +325,12 @@ public class UsbView extends JFrame {
 						for (int i = 0; i < nofOutEPs; i++) {
 							int type = outEPs[i].getBmAttributes() & 0x03;
 							switch (type) {
-							case Usb_Endpoint_Descriptor.USB_ENDPOINT_TYPE_BULK:
+							case UsbEndpointDescriptor.USB_ENDPOINT_TYPE_BULK:
 								testDevice.setOutEPBulk(outEPs[i]
 										.getBEndpointAddress() & 0xff);
 								testDevice.setOutMode(TransferMode.Bulk);
 								break;
-							case Usb_Endpoint_Descriptor.USB_ENDPOINT_TYPE_INTERRUPT:
+							case UsbEndpointDescriptor.USB_ENDPOINT_TYPE_INTERRUPT:
 								testDevice.setOutEPInt(outEPs[i]
 										.getBEndpointAddress() & 0xff);
 								testDevice.setOutMode(TransferMode.Interrupt);

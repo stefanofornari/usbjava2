@@ -42,7 +42,7 @@ JNIEXPORT jint JNICALL Java_ch_ntb_usb_LibusbJava_usb_1find_1devices
 /*
  * Class:     ch_ntb_usb_LibusbJava
  * Method:    usb_get_busses
- * Signature: ()Lch/ntb/usb/Usb_Bus;
+ * Signature: ()Lch/ntb/usb/UsbBus;
  */
 JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
   (JNIEnv *, jclass);
@@ -50,7 +50,7 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
 /*
  * Class:     ch_ntb_usb_LibusbJava
  * Method:    usb_open
- * Signature: (Lch/ntb/usb/Usb_Device;)J
+ * Signature: (Lch/ntb/usb/UsbDevice;)J
  */
 JNIEXPORT jlong JNICALL Java_ch_ntb_usb_LibusbJava_usb_1open
   (JNIEnv *, jclass, jobject);

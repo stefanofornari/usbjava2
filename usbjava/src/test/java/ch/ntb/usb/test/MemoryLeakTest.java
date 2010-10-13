@@ -19,7 +19,7 @@ import ch.ntb.usb.Device;
 import ch.ntb.usb.LibusbJava;
 import ch.ntb.usb.USB;
 import ch.ntb.usb.USBException;
-import ch.ntb.usb.Usb_Bus;
+import ch.ntb.usb.UsbBus;
 import ch.ntb.usb.Utils;
 import ch.ntb.usb.demo.AbstractDeviceInfo;
 import ch.ntb.usb.demo.AbstractDeviceInfo.TransferMode;
@@ -59,7 +59,7 @@ public class MemoryLeakTest extends TestCase {
         LibusbJava.usb_init();
         LibusbJava.usb_find_busses();
         LibusbJava.usb_find_devices();
-        Usb_Bus bus = LibusbJava.usb_get_busses();
+        UsbBus bus = LibusbJava.usb_get_busses();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(baos);
         Utils.logBus(bus, ps);

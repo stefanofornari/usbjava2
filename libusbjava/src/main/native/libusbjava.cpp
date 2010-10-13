@@ -122,7 +122,7 @@ JNIEXPORT jint JNICALL Java_ch_ntb_usb_LibusbJava_usb_1find_1devices
 /*
  * Class:     ch_ntb_usb_LibusbJava
  * Method:    usb_get_busses
- * Signature: ()Lch/ntb/usb/Usb_Bus;
+ * Signature: ()Lch/ntb/usb/UsbBus;
  */
 JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
 (JNIEnv *env, jclass obj) {
@@ -133,7 +133,7 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
     if (!java_references_loaded) {
         // find classes and field ids
         // usb_bus
-        usb_busClazz = env->FindClass("ch/ntb/usb/Usb_Bus");
+        usb_busClazz = env->FindClass("ch/ntb/usb/UsbBus");
         if (usb_busClazz == NULL) {
             return NULL;
             /* exception thrown */
@@ -143,15 +143,15 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
             return NULL;
         }
 
-        usb_busFID_next = env->GetFieldID(usb_busClazz, "next", "Lch/ntb/usb/Usb_Bus;");
-        usb_busFID_prev = env->GetFieldID(usb_busClazz, "prev", "Lch/ntb/usb/Usb_Bus;");
+        usb_busFID_next = env->GetFieldID(usb_busClazz, "next", "Lch/ntb/usb/UsbBus;");
+        usb_busFID_prev = env->GetFieldID(usb_busClazz, "prev", "Lch/ntb/usb/UsbBus;");
         usb_busFID_dirname = env->GetFieldID(usb_busClazz, "dirname", "Ljava/lang/String;");
-        usb_busFID_devices = env->GetFieldID(usb_busClazz, "devices", "Lch/ntb/usb/Usb_Device;");
+        usb_busFID_devices = env->GetFieldID(usb_busClazz, "devices", "Lch/ntb/usb/UsbDevice;");
         usb_busFID_location = env->GetFieldID(usb_busClazz, "location", "J");
-        usb_busFID_root_dev = env->GetFieldID(usb_busClazz, "root_dev", "Lch/ntb/usb/Usb_Device;");
+        usb_busFID_root_dev = env->GetFieldID(usb_busClazz, "root_dev", "Lch/ntb/usb/UsbDevice;");
 
         // usb_device
-        usb_devClazz = env->FindClass("ch/ntb/usb/Usb_Device");
+        usb_devClazz = env->FindClass("ch/ntb/usb/UsbDevice");
         if (usb_devClazz == NULL) {
             return NULL;
             /* exception thrown */
@@ -161,20 +161,20 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
             return NULL;
         }
 
-        usb_devFID_next = env->GetFieldID(usb_devClazz, "next", "Lch/ntb/usb/Usb_Device;");
-        usb_devFID_prev = env->GetFieldID(usb_devClazz, "prev", "Lch/ntb/usb/Usb_Device;");
+        usb_devFID_next = env->GetFieldID(usb_devClazz, "next", "Lch/ntb/usb/UsbDevice;");
+        usb_devFID_prev = env->GetFieldID(usb_devClazz, "prev", "Lch/ntb/usb/UsbDevice;");
         usb_devFID_filename = env->GetFieldID(usb_devClazz, "filename", "Ljava/lang/String;");
-        usb_devFID_bus = env->GetFieldID(usb_devClazz, "bus", "Lch/ntb/usb/Usb_Bus;");
-        usb_devFID_descriptor = env->GetFieldID(usb_devClazz, "descriptor", "Lch/ntb/usb/Usb_Device_Descriptor;");
-        usb_devFID_config = env->GetFieldID(usb_devClazz, "config", "[Lch/ntb/usb/Usb_Config_Descriptor;");
+        usb_devFID_bus = env->GetFieldID(usb_devClazz, "bus", "Lch/ntb/usb/UsbBus;");
+        usb_devFID_descriptor = env->GetFieldID(usb_devClazz, "descriptor", "Lch/ntb/usb/UsbDeviceDescriptor;");
+        usb_devFID_config = env->GetFieldID(usb_devClazz, "config", "[Lch/ntb/usb/UsbConfigDescriptor;");
         usb_devFID_devnum = env->GetFieldID(usb_devClazz, "devnum", "B");
         usb_devFID_num_children = env->GetFieldID(usb_devClazz, "num_children", "B");
-        usb_devFID_children = env->GetFieldID(usb_devClazz, "children", "Lch/ntb/usb/Usb_Device;");
+        usb_devFID_children = env->GetFieldID(usb_devClazz, "children", "Lch/ntb/usb/UsbDevice;");
         usb_devFID_devStructAddr = env->GetFieldID(usb_devClazz, "devStructAddr", "J");
 
 
         // usb_device_descriptor
-        usb_devDescClazz = env->FindClass("ch/ntb/usb/Usb_Device_Descriptor");
+        usb_devDescClazz = env->FindClass("ch/ntb/usb/UsbDeviceDescriptor");
         if (usb_devDescClazz == NULL) {
             return NULL;
             /* exception thrown */
@@ -200,7 +200,7 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
         usb_devDescFID_bNumConfigurations = env->GetFieldID(usb_devDescClazz, "bNumConfigurations", "B");
 
         // usb_configuration_descriptor
-        usb_confDescClazz = env->FindClass("ch/ntb/usb/Usb_Config_Descriptor");
+        usb_confDescClazz = env->FindClass("ch/ntb/usb/UsbConfigDescriptor");
         if (usb_confDescClazz == NULL) {
             return NULL;
             /* exception thrown */
@@ -218,12 +218,12 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
         usb_confDescFID_iConfiguration = env->GetFieldID(usb_confDescClazz, "iConfiguration", "B");
         usb_confDescFID_bmAttributes = env->GetFieldID(usb_confDescClazz, "bmAttributes", "B");
         usb_confDescFID_MaxPower = env->GetFieldID(usb_confDescClazz, "MaxPower", "B");
-        usb_confDescFID_interface_ = env->GetFieldID(usb_confDescClazz, "interface_", "[Lch/ntb/usb/Usb_Interface;");
+        usb_confDescFID_interface_ = env->GetFieldID(usb_confDescClazz, "interface_", "[Lch/ntb/usb/UsbInterface;");
         usb_confDescFID_extra = env->GetFieldID(usb_confDescClazz, "extra", "[B");
         usb_confDescFID_extralen = env->GetFieldID(usb_confDescClazz, "extralen", "I");
 
         // usb_interface
-        usb_intClazz = env->FindClass("ch/ntb/usb/Usb_Interface");
+        usb_intClazz = env->FindClass("ch/ntb/usb/UsbInterface");
         if (usb_intClazz == NULL) {
             return NULL;
             /* exception thrown */
@@ -233,11 +233,11 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
             return NULL;
         }
 
-        usb_intFID_altsetting = env->GetFieldID(usb_intClazz, "altsetting", "[Lch/ntb/usb/Usb_Interface_Descriptor;");
+        usb_intFID_altsetting = env->GetFieldID(usb_intClazz, "altsetting", "[Lch/ntb/usb/UsbInterfaceDescriptor;");
         usb_intFID_num_altsetting = env->GetFieldID(usb_intClazz, "num_altsetting", "I");
 
         // usb_interface_descriptor
-        usb_intDescClazz = env->FindClass("ch/ntb/usb/Usb_Interface_Descriptor");
+        usb_intDescClazz = env->FindClass("ch/ntb/usb/UsbInterfaceDescriptor");
         if (usb_intDescClazz == NULL) {
             return NULL;
             /* exception thrown */
@@ -256,12 +256,12 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
         usb_intDescFID_bInterfaceSubClass = env->GetFieldID(usb_intDescClazz, "bInterfaceSubClass", "B");
         usb_intDescFID_bInterfaceProtocol = env->GetFieldID(usb_intDescClazz, "bInterfaceProtocol", "B");
         usb_intDescFID_iInterface = env->GetFieldID(usb_intDescClazz, "iInterface", "B");
-        usb_intDescFID_endpoint = env->GetFieldID(usb_intDescClazz, "endpoint", "[Lch/ntb/usb/Usb_Endpoint_Descriptor;");
+        usb_intDescFID_endpoint = env->GetFieldID(usb_intDescClazz, "endpoint", "[Lch/ntb/usb/UsbEndpointDescriptor;");
         usb_intDescFID_extra = env->GetFieldID(usb_intDescClazz, "extra", "[B");
         usb_intDescFID_extralen = env->GetFieldID(usb_intDescClazz, "extralen", "I");
 
         // usb_endpoint_descriptor
-        usb_epDescClazz = env->FindClass("ch/ntb/usb/Usb_Endpoint_Descriptor");
+        usb_epDescClazz = env->FindClass("ch/ntb/usb/UsbEndpointDescriptor");
         if (usb_epDescClazz == NULL) {
             return NULL;
             /* exception thrown */
@@ -569,7 +569,7 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
 /*
  * Class:     ch_ntb_usb_LibusbJava
  * Method:    usb_open
- * Signature: (Lch/ntb/usb/Usb_Device;)I
+ * Signature: (Lch/ntb/usb/UsbDevice;)I
  */
 JNIEXPORT jlong JNICALL Java_ch_ntb_usb_LibusbJava_usb_1open
 (JNIEnv *env, jclass obj, jobject dev) {

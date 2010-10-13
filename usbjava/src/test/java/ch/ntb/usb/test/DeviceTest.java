@@ -20,9 +20,9 @@ import ch.ntb.usb.Device;
 import ch.ntb.usb.LibusbJava;
 import ch.ntb.usb.USB;
 import ch.ntb.usb.USBException;
-import ch.ntb.usb.Usb_Bus;
-import ch.ntb.usb.Usb_Config_Descriptor;
-import ch.ntb.usb.Usb_Device_Descriptor;
+import ch.ntb.usb.UsbBus;
+import ch.ntb.usb.UsbConfigDescriptor;
+import ch.ntb.usb.UsbDeviceDescriptor;
 import ch.ntb.usb.Utils;
 import ch.ntb.usb.demo.AbstractDeviceInfo;
 import ch.ntb.usb.demo.AbstractDeviceInfo.TransferMode;
@@ -64,7 +64,7 @@ public class DeviceTest extends TestCase {
         LibusbJava.usb_init();
         LibusbJava.usb_find_busses();
         LibusbJava.usb_find_devices();
-        Usb_Bus bus = LibusbJava.usb_get_busses();
+        UsbBus bus = LibusbJava.usb_get_busses();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(baos);
         Utils.logBus(bus, ps);
@@ -73,11 +73,11 @@ public class DeviceTest extends TestCase {
 
     public void testGetDescriptors() throws Exception {
         dev.updateDescriptors();
-        Usb_Device_Descriptor devDescriptor = dev.getDeviceDescriptor();
+        UsbDeviceDescriptor devDescriptor = dev.getDeviceDescriptor();
         assertNotNull(devDescriptor);
         assertEquals(devinfo.getIdProduct(), devDescriptor.getIdProduct());
         assertEquals(devinfo.getIdVendor(), devDescriptor.getIdVendor());
-        Usb_Config_Descriptor confDescriptors[] = dev.getConfigDescriptors();
+        UsbConfigDescriptor confDescriptors[] = dev.getConfigDescriptors();
         assertNotNull(confDescriptors);
         assertTrue(confDescriptors[0].getInterface().length > 0);
     }

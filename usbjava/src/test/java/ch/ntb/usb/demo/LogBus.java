@@ -1,6 +1,6 @@
 /* 
  * Java libusb wrapper
- * Copyright (c) 2005-2006 Andreas Schläpfer <spandi at users.sourceforge.net>
+ * Copyright (c) 2005-2006 Andreas Schlï¿½pfer <spandi at users.sourceforge.net>
  *
  * http://libusbjava.sourceforge.net
  * This library is covered by the LGPL, read LGPL.txt for details.
@@ -8,7 +8,7 @@
 package ch.ntb.usb.demo;
 
 import ch.ntb.usb.LibusbJava;
-import ch.ntb.usb.Usb_Bus;
+import ch.ntb.usb.UsbBus;
 import ch.ntb.usb.Utils;
 
 /**
@@ -28,7 +28,7 @@ public class LogBus {
 
 		// retrieve a object tree representing the bus with its devices and
 		// descriptors
-		Usb_Bus bus = LibusbJava.usb_get_busses();
+		UsbBus bus = LibusbJava.usb_get_busses();
 
 		// log the bus structure to standard out
 		Utils.logBus(bus);

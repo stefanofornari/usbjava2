@@ -17,32 +17,32 @@ import java.io.UnsupportedEncodingException;
 public class LibusbJava {
 
     private static AbstractDeviceInfo devInfo;
-    private static Usb_Bus bus;
+    private static UsbBus bus;
     private static byte[] buffer;
 
     public static void init(AbstractDeviceInfo devInfo) {
-        Usb_Device_Descriptor devDesc = new Usb_Device_Descriptor();
-        Usb_Config_Descriptor confDesc = new Usb_Config_Descriptor();
-        Usb_Interface irf = new Usb_Interface();
-        Usb_Interface_Descriptor intDesc = new Usb_Interface_Descriptor();
-        Usb_Endpoint_Descriptor epDesc = new Usb_Endpoint_Descriptor();
+        UsbDeviceDescriptor devDesc = new UsbDeviceDescriptor();
+        UsbConfigDescriptor confDesc = new UsbConfigDescriptor();
+        UsbInterface irf = new UsbInterface();
+        UsbInterfaceDescriptor intDesc = new UsbInterfaceDescriptor();
+        UsbEndpointDescriptor epDesc = new UsbEndpointDescriptor();
 
         devDesc.setIdVendor(devInfo.getIdVendor());
         devDesc.setIdProduct(devInfo.getIdProduct());
 
         epDesc.setwMaxPacketSize((short)devInfo.getMaxDataSize());
-        intDesc.setEndpoint(new Usb_Endpoint_Descriptor[] {epDesc});
-        irf.setAltsetting(new Usb_Interface_Descriptor[] {intDesc});
-        confDesc.setInterface(new Usb_Interface[] {irf});
+        intDesc.setEndpoint(new UsbEndpointDescriptor[] {epDesc});
+        irf.setAltsetting(new UsbInterfaceDescriptor[] {intDesc});
+        confDesc.setInterface(new UsbInterface[] {irf});
 
-        Usb_Device device = new Usb_Device(
+        UsbDevice device = new UsbDevice(
                                 devInfo.getFilename(),
                                 devDesc,
-                                new Usb_Config_Descriptor[] {confDesc},
+                                new UsbConfigDescriptor[] {confDesc},
                                 (byte)1,
                                 (byte)0,
                                 null);
-        bus = new Usb_Bus(devInfo.getBusName(), device, 0);
+        bus = new UsbBus(devInfo.getBusName(), device, 0);
         device.setBus(bus);
 
         LibusbJava.devInfo = devInfo;
@@ -62,11 +62,11 @@ public class LibusbJava {
         return 1;
     }
 
-    public static Usb_Bus usb_get_busses() {
+    public static UsbBus usb_get_busses() {
         return bus;
     }
 
-    public static long usb_open(Usb_Device dev) {
+    public static long usb_open(UsbDevice dev) {
         return 1234;
     }
 

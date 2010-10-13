@@ -1,6 +1,6 @@
 /* 
  * Java libusb wrapper
- * Copyright (c) 2005-2007 Andreas Schläpfer <spandi at users.sourceforge.net>
+ * Copyright (c) 2005-2007 Andreas Schlï¿½pfer <spandi at users.sourceforge.net>
  *
  * http://libusbjava.sourceforge.net
  * This library is covered by the LGPL, read LGPL.txt for details.
@@ -8,12 +8,12 @@
 package ch.ntb.usb.test;
 
 import ch.ntb.usb.LibusbJava;
-import ch.ntb.usb.Usb_Bus;
-import ch.ntb.usb.Usb_Config_Descriptor;
-import ch.ntb.usb.Usb_Device;
-import ch.ntb.usb.Usb_Endpoint_Descriptor;
-import ch.ntb.usb.Usb_Interface;
-import ch.ntb.usb.Usb_Interface_Descriptor;
+import ch.ntb.usb.UsbBus;
+import ch.ntb.usb.UsbConfigDescriptor;
+import ch.ntb.usb.UsbDevice;
+import ch.ntb.usb.UsbEndpointDescriptor;
+import ch.ntb.usb.UsbInterface;
+import ch.ntb.usb.UsbInterfaceDescriptor;
 
 /**
  * This class replicates the code from testlibusb.c supplied in the
@@ -28,7 +28,7 @@ public class TestLibUsbJava {
 	 * @param endpoint
 	 *            The end point.
 	 */
-	private static void printEndpoint(Usb_Endpoint_Descriptor endpoint) {
+	private static void printEndpoint(UsbEndpointDescriptor endpoint) {
 		System.out.print(String.format("      bEndpointAddress: %02xh\n",
 				endpoint.getBEndpointAddress()));
 		System.out.print(String.format("      bmAttributes:     %02xh\n",
@@ -50,7 +50,7 @@ public class TestLibUsbJava {
 	 *            The interface descriptor.
 	 */
 	private static void printAltsetting(
-			Usb_Interface_Descriptor interfaceDescript) {
+			UsbInterfaceDescriptor interfaceDescript) {
 		System.out.print(String.format("    bInterfaceNumber:   %d\n",
 				interfaceDescript.getBInterfaceNumber()));
 		System.out.print(String.format("    bAlternateSetting:  %d\n",
@@ -77,7 +77,7 @@ public class TestLibUsbJava {
 	 * @param usbInterface
 	 *            The interface.
 	 */
-	private static void printInterface(Usb_Interface usbInterface) {
+	private static void printInterface(UsbInterface usbInterface) {
 		for (int i = 0; i < usbInterface.getNumAltsetting(); i++) {
 			printAltsetting(usbInterface.getAltsetting()[i]);
 		}
@@ -89,7 +89,7 @@ public class TestLibUsbJava {
 	 * @param config
 	 *            The configuration.
 	 */
-	private static void printConfiguration(Usb_Config_Descriptor config) {
+	private static void printConfiguration(UsbConfigDescriptor config) {
 		System.out.print(String.format("  wTotalLength:         %d\n", config
 				.getWTotalLength()));
 		System.out.print(String.format("  bNumInterfaces:       %d\n", config
@@ -108,7 +108,7 @@ public class TestLibUsbJava {
 		}
 	}
 
-	private static int printDevice(Usb_Device dev, int level) {
+	private static int printDevice(UsbDevice dev, int level) {
 		long udev;
 		String mfr;
 		String product;
@@ -187,7 +187,7 @@ public class TestLibUsbJava {
 				printConfiguration(dev.getConfig()[i]);
 			}
 		} else {
-			Usb_Device childDev = null;
+			UsbDevice childDev = null;
 
 			for (int i = 0; i < dev.getNumChildren(); i++) {
 				if (i == 0) {
@@ -225,12 +225,12 @@ public class TestLibUsbJava {
 		LibusbJava.usb_find_busses();
 		LibusbJava.usb_find_devices();
 
-		for (Usb_Bus bus = LibusbJava.usb_get_busses(); bus != null; bus = bus
+		for (UsbBus bus = LibusbJava.usb_get_busses(); bus != null; bus = bus
 				.getNext()) {
 			if ((bus.getRootDev() != null) && !verbose) {
 				printDevice(bus.getRootDev(), 0);
 			} else {
-				for (Usb_Device dev = bus.getDevices(); dev != null; dev = dev
+				for (UsbDevice dev = bus.getDevices(); dev != null; dev = dev
 						.getNext()) {
 					printDevice(dev, 0);
 				}
