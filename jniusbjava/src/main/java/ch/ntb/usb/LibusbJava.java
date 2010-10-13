@@ -87,7 +87,7 @@ public class LibusbJava {
 	 * @return the structure of all busses and devices. <code>Note:</code> The
 	 *         java objects are copies of the C structs.
 	 */
-	public static native Usb_Bus usb_get_busses();
+	public static native UsbBus usb_get_busses();
 
 	// Device Operations
 	/**
@@ -100,7 +100,7 @@ public class LibusbJava {
 	 * @return a handle used in future communication with the device. 0 if an
 	 *         error has occurred.
 	 */
-	public static native long usb_open(Usb_Device dev);
+	public static native long usb_open(UsbDevice dev);
 
 	/**
 	 * <code>usb_close</code> closes a device opened with
