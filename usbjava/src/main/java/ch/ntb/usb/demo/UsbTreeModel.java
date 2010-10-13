@@ -227,22 +227,22 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 			sb.append("\tbcdUSB: 0x"
 					+ Integer.toHexString(devDesc.getBcdUSB() & 0xFFFF) + "\n");
 			sb.append("\tbDeviceClass: 0x"
-					+ Integer.toHexString(devDesc.getBDeviceClass() & 0xFF)
+					+ Integer.toHexString(devDesc.getDeviceClass() & 0xFF)
 					+ "\n");
 			sb.append("\tbDeviceSubClass: 0x"
-					+ Integer.toHexString(devDesc.getBDeviceSubClass() & 0xFF)
+					+ Integer.toHexString(devDesc.getDeviceSubClass() & 0xFF)
 					+ "\n");
 			sb.append("\tbDeviceProtocol: 0x"
-					+ Integer.toHexString(devDesc.getBDeviceProtocol() & 0xFF)
+					+ Integer.toHexString(devDesc.getDeviceProtocol() & 0xFF)
 					+ "\n");
 			sb.append("\tbMaxPacketSize0: 0x"
-					+ Integer.toHexString(devDesc.getBMaxPacketSize0() & 0xFF)
-					+ " (" + devDesc.getBMaxPacketSize0() + ")\n");
+					+ Integer.toHexString(devDesc.getMaxPacketSize0() & 0xFF)
+					+ " (" + devDesc.getMaxPacketSize0() + ")\n");
 			sb.append("\tidVendor: 0x"
-					+ Integer.toHexString(devDesc.getIdVendor() & 0xFFFF)
+					+ Integer.toHexString(devDesc.getVendorId() & 0xFFFF)
 					+ "\n");
 			sb.append("\tidProduct: 0x"
-					+ Integer.toHexString(devDesc.getIdProduct() & 0xFFFF)
+					+ Integer.toHexString(devDesc.getProductId() & 0xFFFF)
 					+ "\n");
 			sb
 					.append("\tbcdDevice: 0x"
@@ -250,17 +250,17 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 									.toHexString(devDesc.getBcdDevice() & 0xFF)
 							+ "\n");
 			sb.append("\tiManufacturer: 0x"
-					+ Integer.toHexString(devDesc.getIManufacturer() & 0xFF)
+					+ Integer.toHexString(devDesc.getManufacturer() & 0xFF)
 					+ "\n");
 			sb.append("\tiProduct: 0x"
-					+ Integer.toHexString(devDesc.getIProduct()) + "\n");
+					+ Integer.toHexString(devDesc.getProduct()) + "\n");
 			sb.append("\tiSerialNumber: 0x"
-					+ Integer.toHexString(devDesc.getISerialNumber() & 0xFF)
+					+ Integer.toHexString(devDesc.getSerialNumber() & 0xFF)
 					+ "\n");
 			sb
 					.append("\tbNumConfigurations: 0x"
 							+ Integer.toHexString(devDesc
-									.getBNumConfigurations() & 0xFF) + "\n");
+									.getNumConfigurations() & 0xFF) + "\n");
 			// get device handle to retrieve string descriptors
 			UsbBus bus = rootBus;
 			while (bus != null) {
@@ -268,9 +268,9 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 				while (dev != null) {
 					UsbDeviceDescriptor tmpDevDesc = dev.getDescriptor();
 					if ((dev.getDescriptor() != null)
-							&& ((dev.getDescriptor().getIManufacturer() > 0)
-									|| (dev.getDescriptor().getIProduct() > 0) || (dev
-									.getDescriptor().getISerialNumber() > 0))) {
+							&& ((dev.getDescriptor().getManufacturer() > 0)
+									|| (dev.getDescriptor().getProduct() > 0) || (dev
+									.getDescriptor().getSerialNumber() > 0))) {
 						if (tmpDevDesc.equals(devDesc)) {
 							long handle = LibusbJava.usb_open(dev);
 							sb.append("\nString descriptors\n");
@@ -278,27 +278,27 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 								sb.append("\terror opening the device\n");
 								break;
 							}
-							if (dev.getDescriptor().getIManufacturer() > 0) {
+							if (dev.getDescriptor().getManufacturer() > 0) {
 								String manufacturer = LibusbJava
 										.usb_get_string_simple(handle, devDesc
-												.getIManufacturer());
+												.getManufacturer());
 								if (manufacturer == null)
 									manufacturer = "unable to fetch manufacturer string";
 								sb.append("\tiManufacturer: " + manufacturer
 										+ "\n");
 							}
-							if (dev.getDescriptor().getIProduct() > 0) {
+							if (dev.getDescriptor().getProduct() > 0) {
 								String product = LibusbJava
 										.usb_get_string_simple(handle, devDesc
-												.getIProduct());
+												.getProduct());
 								if (product == null)
 									product = "unable to fetch product string";
 								sb.append("\tiProduct: " + product + "\n");
 							}
-							if (dev.getDescriptor().getISerialNumber() > 0) {
+							if (dev.getDescriptor().getSerialNumber() > 0) {
 								String serialNumber = LibusbJava
 										.usb_get_string_simple(handle, devDesc
-												.getISerialNumber());
+												.getSerialNumber());
 								if (serialNumber == null)
 									serialNumber = "unable to fetch serial number string";
 								sb.append("\tiSerialNumber: " + serialNumber

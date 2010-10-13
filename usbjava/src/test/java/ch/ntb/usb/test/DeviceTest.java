@@ -75,8 +75,8 @@ public class DeviceTest extends TestCase {
         dev.updateDescriptors();
         UsbDeviceDescriptor devDescriptor = dev.getDeviceDescriptor();
         assertNotNull(devDescriptor);
-        assertEquals(devinfo.getIdProduct(), devDescriptor.getIdProduct());
-        assertEquals(devinfo.getIdVendor(), devDescriptor.getIdVendor());
+        assertEquals(devinfo.getIdProduct(), devDescriptor.getProductId());
+        assertEquals(devinfo.getIdVendor(), devDescriptor.getVendorId());
         UsbConfigDescriptor confDescriptors[] = dev.getConfigDescriptors();
         assertNotNull(confDescriptors);
         assertTrue(confDescriptors[0].getInterface().length > 0);

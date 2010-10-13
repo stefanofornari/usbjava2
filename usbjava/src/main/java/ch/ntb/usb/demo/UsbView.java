@@ -180,11 +180,11 @@ public class UsbView extends JFrame {
 	private JTree getUsbTree() {
 		if (usbTree == null) {
 			// open bus
-			LibusbJava.usb_init();
-			LibusbJava.usb_find_busses();
-			LibusbJava.usb_find_devices();
+			                 LibusbJava.usb_init();
+                    LibusbJava.usb_find_busses();
+                    LibusbJava.usb_find_devices();
 
-			UsbBus bus = LibusbJava.usb_get_busses();
+                    UsbBus bus = LibusbJava.usb_get_busses();
 
 			treeModel = new UsbTreeModel(bus, jPropertiesArea);
 			usbTree = new JTree(treeModel);
@@ -268,8 +268,8 @@ public class UsbView extends JFrame {
 					} else if (usbObj instanceof UsbDevice) {
 						UsbDeviceDescriptor devDesc = ((UsbDevice) usbObj)
 								.getDescriptor();
-						productId = devDesc.getIdProduct();
-						vendorId = devDesc.getIdVendor();
+						productId = devDesc.getProductId();
+						vendorId = devDesc.getVendorId();
 					}
 					parent = parent.getParentPath();
 				}

@@ -76,7 +76,7 @@ public class UsbDeviceDescriptor extends UsbDescriptor {
      *
      * @return the class code
      */
-    public byte getBDeviceClass() {
+    public byte getDeviceClass() {
         return bDeviceClass;
     }
 
@@ -86,7 +86,7 @@ public class UsbDeviceDescriptor extends UsbDescriptor {
      *
      * @return the protocol code
      */
-    public byte getBDeviceProtocol() {
+    public byte getDeviceProtocol() {
         return bDeviceProtocol;
     }
 
@@ -96,7 +96,7 @@ public class UsbDeviceDescriptor extends UsbDescriptor {
      *
      * @return the subclass code
      */
-    public byte getBDeviceSubClass() {
+    public byte getDeviceSubClass() {
         return bDeviceSubClass;
     }
 
@@ -106,7 +106,7 @@ public class UsbDeviceDescriptor extends UsbDescriptor {
      *
      * @return the maximum packet size for endpoint zero
      */
-    public byte getBMaxPacketSize0() {
+    public byte getMaxPacketSize0() {
         return bMaxPacketSize0;
     }
 
@@ -117,7 +117,7 @@ public class UsbDeviceDescriptor extends UsbDescriptor {
      * @return the number of possible configurations supported at its current
      *         speed
      */
-    public byte getBNumConfigurations() {
+    public byte getNumConfigurations() {
         return bNumConfigurations;
     }
 
@@ -127,7 +127,7 @@ public class UsbDeviceDescriptor extends UsbDescriptor {
      *
      * @return the product ID
      */
-    public short getIdProduct() {
+    public short getProductId() {
         return idProduct;
     }
 
@@ -137,7 +137,7 @@ public class UsbDeviceDescriptor extends UsbDescriptor {
      *
      * @return the Vendor ID
      */
-    public short getIdVendor() {
+    public short getVendorId() {
         return idVendor;
     }
 
@@ -147,7 +147,7 @@ public class UsbDeviceDescriptor extends UsbDescriptor {
      *
      * @return the index of the manufacturer string descriptor
      */
-    public byte getIManufacturer() {
+    public byte getManufacturer() {
         return iManufacturer;
     }
 
@@ -157,7 +157,7 @@ public class UsbDeviceDescriptor extends UsbDescriptor {
      *
      * @return the index of the product string descriptor
      */
-    public byte getIProduct() {
+    public byte getProduct() {
         return iProduct;
     }
 
@@ -167,91 +167,91 @@ public class UsbDeviceDescriptor extends UsbDescriptor {
      *
      * @return the index of serial number string descriptor
      */
-    public byte getISerialNumber() {
+    public byte getSerialNumber() {
         return iSerialNumber;
     }
 
     /**
      * @param bcdUSB the bcdUSB to set
      */
-    public void setBcdUSB(short bcdUSB) {
+    public void setCdUSB(short bcdUSB) {
         this.bcdUSB = bcdUSB;
     }
 
     /**
      * @param bDeviceClass the bDeviceClass to set
      */
-    public void setbDeviceClass(byte bDeviceClass) {
+    public void setDeviceClass(byte bDeviceClass) {
         this.bDeviceClass = bDeviceClass;
     }
 
     /**
      * @param bDeviceSubClass the bDeviceSubClass to set
      */
-    public void setbDeviceSubClass(byte bDeviceSubClass) {
+    public void setDeviceSubClass(byte bDeviceSubClass) {
         this.bDeviceSubClass = bDeviceSubClass;
     }
 
     /**
      * @param bDeviceProtocol the bDeviceProtocol to set
      */
-    public void setbDeviceProtocol(byte bDeviceProtocol) {
+    public void setDeviceProtocol(byte bDeviceProtocol) {
         this.bDeviceProtocol = bDeviceProtocol;
     }
 
     /**
      * @param bMaxPacketSize0 the bMaxPacketSize0 to set
      */
-    public void setbMaxPacketSize0(byte bMaxPacketSize0) {
+    public void setMaxPacketSize0(byte bMaxPacketSize0) {
         this.bMaxPacketSize0 = bMaxPacketSize0;
     }
 
     /**
      * @param idVendor the idVendor to set
      */
-    public void setIdVendor(short idVendor) {
+    public void setVendorId(short idVendor) {
         this.idVendor = idVendor;
     }
 
     /**
      * @param idProduct the idProduct to set
      */
-    public void setIdProduct(short idProduct) {
+    public void setProductId(short idProduct) {
         this.idProduct = idProduct;
     }
 
     /**
      * @param bcdDevice the bcdDevice to set
      */
-    public void setBcdDevice(short bcdDevice) {
+    public void setCdDevice(short bcdDevice) {
         this.bcdDevice = bcdDevice;
     }
 
     /**
      * @param iManufacturer the iManufacturer to set
      */
-    public void setiManufacturer(byte iManufacturer) {
+    public void setManufacturer(byte iManufacturer) {
         this.iManufacturer = iManufacturer;
     }
 
     /**
      * @param iProduct the iProduct to set
      */
-    public void setiProduct(byte iProduct) {
+    public void setProduct(byte iProduct) {
         this.iProduct = iProduct;
     }
 
     /**
      * @param iSerialNumber the iSerialNumber to set
      */
-    public void setiSerialNumber(byte iSerialNumber) {
+    public void setSerialNumber(byte iSerialNumber) {
         this.iSerialNumber = iSerialNumber;
     }
 
     /**
      * @param bNumConfigurations the bNumConfigurations to set
      */
-    public void setbNumConfigurations(byte bNumConfigurations) {
+    public void setNumConfigurations(byte bNumConfigurations) {
         this.bNumConfigurations = bNumConfigurations;
     }
 

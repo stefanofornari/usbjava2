@@ -100,8 +100,8 @@ public class Device {
                 if (busName != null && filename != null) {
                     if (busName.compareTo(bus.getDirname()) == 0
                             && filename.compareTo(device.getFilename()) == 0
-                            && devDesc.getIdVendor() == idVendor
-                            && devDesc.getIdProduct() == idProduct) {
+                            && devDesc.getVendorId() == idVendor
+                            && devDesc.getProductId() == idProduct) {
                         logger.info("Device found. bus: " + bus.getDirname()
                                 + ", filename: " + device.getFilename());
                         updateMaxPacketSize(device);
@@ -109,8 +109,8 @@ public class Device {
                     }
                 } else if (filename != null) {
                     if (filename.compareTo(device.getFilename()) == 0
-                            && devDesc.getIdVendor() == idVendor
-                            && devDesc.getIdProduct() == idProduct) {
+                            && devDesc.getVendorId() == idVendor
+                            && devDesc.getProductId() == idProduct) {
                         logger.info("Device found. bus: " + bus.getDirname()
                                 + ", filename: " + device.getFilename());
                         updateMaxPacketSize(device);
@@ -118,15 +118,15 @@ public class Device {
                     }
                 } else if (busName != null) {
                     if (busName.compareTo(bus.getDirname()) == 0
-                            && devDesc.getIdVendor() == idVendor
-                            && devDesc.getIdProduct() == idProduct) {
+                            && devDesc.getVendorId() == idVendor
+                            && devDesc.getProductId() == idProduct) {
                         logger.info("Device found. bus: " + bus.getDirname()
                                 + ", filename: " + device.getFilename());
                         updateMaxPacketSize(device);
                         return device;
                     }
-                } else if (devDesc.getIdVendor() == idVendor
-                        && devDesc.getIdProduct() == idProduct) {
+                } else if (devDesc.getVendorId() == idVendor
+                        && devDesc.getProductId() == idProduct) {
                     logger.info("Device found. bus: " + bus.getDirname()
                             + ", filename: " + device.getFilename());
                     updateMaxPacketSize(device);

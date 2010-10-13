@@ -121,49 +121,49 @@ public class TestLibUsbJava {
 		udev = LibusbJava.usb_open(dev);
 
 		if (udev != 0) {
-			if (dev.getDescriptor().getIManufacturer() != 0) {
+			if (dev.getDescriptor().getManufacturer() != 0) {
 				mfr = LibusbJava.usb_get_string_simple(udev, dev
-						.getDescriptor().getIManufacturer());
+						.getDescriptor().getManufacturer());
 
 				if (mfr != null) {
 					descript = String.format("%s - ", mfr);
 				} else {
 					descript = String.format("%04X - ", dev.getDescriptor()
-							.getIdVendor());
+							.getVendorId());
 				}
 			} else {
 				descript = String.format("%04X - ", dev.getDescriptor()
-						.getIdVendor());
+						.getVendorId());
 			}
 
-			if (dev.getDescriptor().getIProduct() != 0) {
+			if (dev.getDescriptor().getProduct() != 0) {
 				product = LibusbJava.usb_get_string_simple(udev, dev
-						.getDescriptor().getIProduct());
+						.getDescriptor().getProduct());
 
 				if (product != null) {
 					descript = descript + String.format("%s", product);
 				} else {
 					descript = descript
 							+ String.format("%04X", dev.getDescriptor()
-									.getIdProduct());
+									.getProductId());
 				}
 			} else {
 				descript = descript
 						+ String.format("%04X", dev.getDescriptor()
-								.getIdProduct());
+								.getProductId());
 			}
 		} else {
 			descript = String.format("%04X - %04X", dev.getDescriptor()
-					.getIdVendor(), dev.getDescriptor().getIdProduct());
+					.getVendorId(), dev.getDescriptor().getProductId());
 		}
 
 		System.out.print(String.format("%sDev #%d: %s\n", spaces.substring(0,
 				level * 2), dev.getDevnum(), descript));
 
 		if ((udev != 0) && verbose) {
-			if (dev.getDescriptor().getISerialNumber() != 0) {
+			if (dev.getDescriptor().getSerialNumber() != 0) {
 				sn = LibusbJava.usb_get_string_simple(udev, dev.getDescriptor()
-						.getISerialNumber());
+						.getSerialNumber());
 
 				if (sn != null) {
 					System.out.print(String.format("%s  - Serial Number: %s\n",
@@ -183,7 +183,7 @@ public class TestLibUsbJava {
 				return 0;
 			}
 
-			for (int i = 0; i < dev.getDescriptor().getBNumConfigurations(); i++) {
+			for (int i = 0; i < dev.getDescriptor().getNumConfigurations(); i++) {
 				printConfiguration(dev.getConfig()[i]);
 			}
 		} else {
