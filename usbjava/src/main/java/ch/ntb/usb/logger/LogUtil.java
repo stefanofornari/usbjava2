@@ -1,6 +1,6 @@
 /* 
  * Java libusb wrapper
- * Copyright (c) 2005-2006 Andreas Schläpfer <spandi at users.sourceforge.net>
+ * Copyright (c) 2005-2006 Andreas Schlï¿½pfer <spandi at users.sourceforge.net>
  *
  * http://libusbjava.sourceforge.net
  * This library is covered by the LGPL, read LGPL.txt for details.
@@ -21,7 +21,7 @@ public class LogUtil {
 	private static final boolean debugLogUtil = false;
 
 	private static final String PLUGIN_ID = "ch.ntb.usb";
-	private static final String PROPERTIES_FILE = ".configure";
+	private static final String PROPERTIES_FILE = "/log.properties";
 	private static final String LOGGER_WARNING = "Warning in class "
 			+ LogUtil.class.getName()
 			+ ": could not load the logger properties file " + PROPERTIES_FILE;
@@ -81,8 +81,7 @@ public class LogUtil {
 	private static void createLoggersFromProperties() {
 		try {
 			debugMsg(LogUtil.class.getName(), "createLoggersFromProperties");
-			InputStream is = LogUtil.class.getClassLoader()
-					.getResourceAsStream(PROPERTIES_FILE);
+			InputStream is = LogUtil.class.getResourceAsStream(PROPERTIES_FILE);
 			if (is == null) {
 				System.err.println(LOGGER_WARNING);
 			} else {
