@@ -29,12 +29,12 @@ public class Utils {
 				UsbConfigDescriptor[] confDesc = dev.getConfig();
 				for (int i = 0; i < confDesc.length; i++) {
 					out.println("\t\t" + confDesc[i].toString());
-					UsbInterface[] int_ = confDesc[i].getInterface();
+					UsbInterface[] int_ = confDesc[i].getInterfaces();
 					if (int_ != null) {
 						for (int j = 0; j < int_.length; j++) {
 							out.println("\t\t\t" + int_[j].toString());
 							UsbInterfaceDescriptor[] intDesc = int_[j]
-									.getAltsetting();
+									.getAlternateSetting();
 							if (intDesc != null) {
 								for (int k = 0; k < intDesc.length; k++) {
 									out.println("\t\t\t\t"

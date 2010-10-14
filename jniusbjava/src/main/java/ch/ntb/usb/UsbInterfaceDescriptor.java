@@ -55,7 +55,7 @@ public class UsbInterfaceDescriptor extends UsbDescriptor {
 	 * 
 	 * @return the alternate setting
 	 */
-	public byte getBAlternateSetting() {
+	public byte getAlternateSetting() {
 		return bAlternateSetting;
 	}
 
@@ -65,7 +65,7 @@ public class UsbInterfaceDescriptor extends UsbDescriptor {
 	 * 
 	 * @return the class code
 	 */
-	public byte getBInterfaceClass() {
+	public byte getInterfaceClass() {
 		return bInterfaceClass;
 	}
 
@@ -74,7 +74,7 @@ public class UsbInterfaceDescriptor extends UsbDescriptor {
 	 * 
 	 * @return the number (identifier) of this interface
 	 */
-	public byte getBInterfaceNumber() {
+	public byte getInterfaceNumber() {
 		return bInterfaceNumber;
 	}
 
@@ -84,7 +84,7 @@ public class UsbInterfaceDescriptor extends UsbDescriptor {
 	 * 
 	 * @return the protocol code
 	 */
-	public byte getBInterfaceProtocol() {
+	public byte getInterfaceProtocol() {
 		return bInterfaceProtocol;
 	}
 
@@ -94,7 +94,7 @@ public class UsbInterfaceDescriptor extends UsbDescriptor {
 	 * 
 	 * @return the subclass code
 	 */
-	public byte getBInterfaceSubClass() {
+	public byte getInterfaceSubClass() {
 		return bInterfaceSubClass;
 	}
 
@@ -103,7 +103,7 @@ public class UsbInterfaceDescriptor extends UsbDescriptor {
 	 * 
 	 * @return the number of endpoints used for this interface
 	 */
-	public byte getBNumEndpoints() {
+	public byte getNumEndpoints() {
 		return bNumEndpoints;
 	}
 
@@ -139,56 +139,56 @@ public class UsbInterfaceDescriptor extends UsbDescriptor {
 	 * 
 	 * @return the index of the String descriptor
 	 */
-	public byte getIInterface() {
+	public byte getInterface() {
 		return iInterface;
 	}
 
     /**
      * @param bInterfaceNumber the bInterfaceNumber to set
      */
-    public void setbInterfaceNumber(byte bInterfaceNumber) {
+    public void setInterfaceNumber(byte bInterfaceNumber) {
         this.bInterfaceNumber = bInterfaceNumber;
     }
 
     /**
      * @param bAlternateSetting the bAlternateSetting to set
      */
-    public void setbAlternateSetting(byte bAlternateSetting) {
+    public void setAlternateSetting(byte bAlternateSetting) {
         this.bAlternateSetting = bAlternateSetting;
     }
 
     /**
      * @param bNumEndpoints the bNumEndpoints to set
      */
-    public void setbNumEndpoints(byte bNumEndpoints) {
+    public void setNumEndpoints(byte bNumEndpoints) {
         this.bNumEndpoints = bNumEndpoints;
     }
 
     /**
      * @param bInterfaceClass the bInterfaceClass to set
      */
-    public void setbInterfaceClass(byte bInterfaceClass) {
+    public void setInterfaceClass(byte bInterfaceClass) {
         this.bInterfaceClass = bInterfaceClass;
     }
 
     /**
      * @param bInterfaceSubClass the bInterfaceSubClass to set
      */
-    public void setbInterfaceSubClass(byte bInterfaceSubClass) {
+    public void setInterfaceSubClass(byte bInterfaceSubClass) {
         this.bInterfaceSubClass = bInterfaceSubClass;
     }
 
     /**
      * @param bInterfaceProtocol the bInterfaceProtocol to set
      */
-    public void setbInterfaceProtocol(byte bInterfaceProtocol) {
+    public void setInterfaceProtocol(byte bInterfaceProtocol) {
         this.bInterfaceProtocol = bInterfaceProtocol;
     }
 
     /**
      * @param iInterface the iInterface to set
      */
-    public void setiInterface(byte iInterface) {
+    public void setInterface(byte iInterface) {
         this.iInterface = iInterface;
     }
 

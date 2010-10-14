@@ -33,7 +33,7 @@ public class UsbInterface {
      *
      * @return an array of interface descriptors
      */
-    public UsbInterfaceDescriptor[] getAltsetting() {
+    public UsbInterfaceDescriptor[] getAlternateSetting() {
         return altsetting;
     }
 
@@ -42,21 +42,21 @@ public class UsbInterface {
      *
      * @return the number of alternate settings
      */
-    public int getNumAltsetting() {
+    public int getNumAlternateSetting() {
         return num_altsetting;
     }
 
     /**
      * @param altsetting the altsetting to set
      */
-    public void setAltsetting(UsbInterfaceDescriptor[] altsetting) {
+    public void setAlternateSetting(UsbInterfaceDescriptor[] altsetting) {
         this.altsetting = altsetting;
     }
 
     /**
      * @param num_altsetting the num_altsetting to set
      */
-    public void setNum_altsetting(int num_altsetting) {
+    public void setNumAlternateSetting(int num_altsetting) {
         this.num_altsetting = num_altsetting;
     }
 }

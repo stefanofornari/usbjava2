@@ -79,7 +79,7 @@ public class DeviceTest extends TestCase {
         assertEquals(devinfo.getIdVendor(), devDescriptor.getVendorId());
         UsbConfigDescriptor confDescriptors[] = dev.getConfigDescriptors();
         assertNotNull(confDescriptors);
-        assertTrue(confDescriptors[0].getInterface().length > 0);
+        assertTrue(confDescriptors[0].getInterfaces().length > 0);
     }
 
     public void testInitalReset() throws Exception {
@@ -311,7 +311,7 @@ public class DeviceTest extends TestCase {
             // data = byte[1];
             // length = dev.controlMsg(USB.REQ_TYPE_DIR_DEVICE_TO_HOST
             // | USB.REQ_TYPE_TYPE_STANDARD | USB.REQ_TYPE_RECIP_INTERFACE,
-            // USB.REQ_GET_INTERFACE, 0, devinfo.getInterface(), data,
+            // USB.REQ_GET_INTERFACE, 0, devinfo.getInterfaces(), data,
             // data.length,
             // devinfo
             // .getTimeout(), false);

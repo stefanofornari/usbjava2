@@ -65,9 +65,9 @@ public class Device {
         setMaxPacketSize(-1);
         UsbConfigDescriptor[] confDesc = device.getConfig();
         for (int i = 0; i < confDesc.length; i++) {
-            UsbInterface[] int_ = confDesc[i].getInterface();
+            UsbInterface[] int_ = confDesc[i].getInterfaces();
             for (int j = 0; j < int_.length; j++) {
-                UsbInterfaceDescriptor[] intDesc = int_[j].getAltsetting();
+                UsbInterfaceDescriptor[] intDesc = int_[j].getAlternateSetting();
                 for (int k = 0; k < intDesc.length; k++) {
                     UsbEndpointDescriptor[] epDesc = intDesc[k].getEndpoint();
                     for (int l = 0; l < epDesc.length; l++) {
@@ -280,13 +280,13 @@ public class Device {
      *
      * @param configuration
      *            the configuration, see
-     *            {@link UsbConfigDescriptor#getBConfigurationValue()}
+     *            {@link UsbConfigDescriptor#getConfigurationValue()}
      * @param interface_
      *            the interface, see
-     *            {@link UsbInterfaceDescriptor#getBInterfaceNumber()}
+     *            {@link UsbInterfaceDescriptor#getInterfaceNumber()}
      * @param altinterface
      *            the alternate interface, see
-     *            {@link UsbInterfaceDescriptor#getBAlternateSetting()}. If no
+     *            {@link UsbInterfaceDescriptor#getAlternateSetting()}. If no
      *            alternate interface must be set <i>-1</i> can be used.
      * @throws USBException
      */

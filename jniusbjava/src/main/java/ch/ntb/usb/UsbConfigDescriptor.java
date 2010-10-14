@@ -28,7 +28,7 @@ public class UsbConfigDescriptor extends UsbDescriptor {
     private byte iConfiguration;
     private byte bmAttributes;
     private byte MaxPower;
-    private UsbInterface[] interface_;
+    private UsbInterface[] interfaces;
     private byte[] extra; /* Extra descriptors */
 
     private int extralen;
@@ -38,7 +38,7 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      *
      * @return the value to use as an argument to select this configuration
      */
-    public byte getBConfigurationValue() {
+    public byte getConfigurationValue() {
         return bConfigurationValue;
     }
 
@@ -52,7 +52,7 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      *
      * @return the power parameters for this configuration
      */
-    public byte getBmAttributes() {
+    public byte getAttributes() {
         return bmAttributes;
     }
 
@@ -61,7 +61,7 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      *
      * @return the number of interfaces
      */
-    public byte getBNumInterfaces() {
+    public byte getNumInterfaces() {
         return bNumInterfaces;
     }
 
@@ -88,7 +88,7 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      *
      * @return the index of the String descriptor
      */
-    public byte getIConfiguration() {
+    public byte getConfiguration() {
         return iConfiguration;
     }
 
@@ -97,8 +97,56 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      *
      * @return the USB interface descriptors
      */
-    public UsbInterface[] getInterface() {
-        return interface_;
+    public UsbInterface[] getInterfaces() {
+        return interfaces;
+    }
+
+    /**
+     * Returns the USB interface descriptor given the index .<br>
+     *
+     * @param index the index
+     *
+     * @return the USB interface descriptors
+     *
+     * @throws IllegalArgumentException if index is out of range
+     */
+    public UsbInterface getInterface(int index) {
+        if (interfaces == null) {
+            throw new IllegalArgumentException("interfaces not initializated yet");
+        }
+
+        if ((index < 0) || (index >= interfaces.length)) {
+            throw new IllegalArgumentException("index cannot be < 0 or >= " + interfaces.length);
+        }
+        
+        return interfaces[index];
+    }
+
+    /**
+     * Returns the USB interface descriptor given the index .<br>
+     *
+     * @param index the interface index
+     * @param alt the alternate settings index
+     *
+     * @return the USB interface descriptors
+     *
+     * @throws IllegalArgumentException if index is out of range
+     */
+    public UsbInterface getInterface(int index, int alt) {
+        UsbInterface i = getInterface(index);
+        UsbInterfaceDescriptor[] interfaceSettings = i.getAlternateSetting();
+
+        /*
+        if (i.getAlternateSetting() == null) {
+            throw new IllegalArgumentException(" not initializated yet");
+        }
+         */
+
+        if ((alt < 0) || (alt >= interfaceSettings.length)) {
+            throw new IllegalArgumentException("index cannot be < 0 or >= " + interfaceSettings.length);
+        }
+
+        return i;
     }
 
     /**
@@ -119,14 +167,14 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      *
      * @return the total length in bytes of all descriptors
      */
-    public short getWTotalLength() {
+    public short getTotalLength() {
         return wTotalLength;
     }
 
     /**
      * @param wTotalLength the wTotalLength to set
      */
-    public void setwTotalLength(short wTotalLength) {
+    public void setTotalLength(short wTotalLength) {
         this.wTotalLength = wTotalLength;
     }
 
@@ -136,28 +184,28 @@ public class UsbConfigDescriptor extends UsbDescriptor {
     //
     // TODO: to be removed???
     //
-    public void setbNumInterfaces(byte bNumInterfaces) {
+    public void setNumInterfaces(byte bNumInterfaces) {
         this.bNumInterfaces = bNumInterfaces;
     }
 
     /**
      * @param bConfigurationValue the bConfigurationValue to set
      */
-    public void setbConfigurationValue(byte bConfigurationValue) {
+    public void setConfigurationValue(byte bConfigurationValue) {
         this.bConfigurationValue = bConfigurationValue;
     }
 
     /**
      * @param iConfiguration the iConfiguration to set
      */
-    public void setiConfiguration(byte iConfiguration) {
+    public void setConfiguration(byte iConfiguration) {
         this.iConfiguration = iConfiguration;
     }
 
     /**
      * @param bmAttributes the bmAttributes to set
      */
-    public void setBmAttributes(byte bmAttributes) {
+    public void setAttributes(byte bmAttributes) {
         this.bmAttributes = bmAttributes;
     }
 
@@ -171,8 +219,8 @@ public class UsbConfigDescriptor extends UsbDescriptor {
     /**
      * @param interfaces the interfaces to set
      */
-    public void setInterface(UsbInterface[] interfaces) {
-        this.interface_ = interfaces;
+    public void setInterfaces(UsbInterface[] interfaces) {
+        this.interfaces = interfaces;
     }
 
     /**

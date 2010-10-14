@@ -95,13 +95,13 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 			return confDescs[index - 1];
 		} else if (parent instanceof UsbConfigDescriptor) {
 			UsbInterface[] intDescs = ((UsbConfigDescriptor) parent)
-					.getInterface();
+					.getInterfaces();
 			if (index >= intDescs.length)
 				return null;
 			return intDescs[index];
 		} else if (parent instanceof UsbInterface) {
 			UsbInterfaceDescriptor[] altSettings = ((UsbInterface) parent)
-					.getAltsetting();
+					.getAlternateSetting();
 			if (index >= altSettings.length)
 				return null;
 			return altSettings[index];
@@ -146,9 +146,9 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 			// add the UsbDeviceDescriptor
 			return ((UsbDevice) parent).getConfig().length + 1;
 		} else if (parent instanceof UsbConfigDescriptor) {
-			return ((UsbConfigDescriptor) parent).getInterface().length;
+			return ((UsbConfigDescriptor) parent).getInterfaces().length;
 		} else if (parent instanceof UsbInterface) {
-			return ((UsbInterface) parent).getAltsetting().length;
+			return ((UsbInterface) parent).getAlternateSetting().length;
 		} else if (parent instanceof UsbInterfaceDescriptor) {
 			return ((UsbInterfaceDescriptor) parent).getEndpoint().length;
 		}
@@ -321,17 +321,17 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 					+ Integer.toHexString(confDesc.getBDescriptorType() & 0xFF)
 					+ "\n");
 			sb.append("\tbNumInterfaces: 0x"
-					+ Integer.toHexString(confDesc.getBNumInterfaces() & 0xFF)
+					+ Integer.toHexString(confDesc.getNumInterfaces() & 0xFF)
 					+ "\n");
 			sb
 					.append("\tbConfigurationValue: 0x"
 							+ Integer.toHexString(confDesc
-									.getBConfigurationValue() & 0xFF) + "\n");
+									.getConfigurationValue() & 0xFF) + "\n");
 			sb.append("\tiConfiguration: 0x"
-					+ Integer.toHexString(confDesc.getIConfiguration() & 0xFF)
+					+ Integer.toHexString(confDesc.getConfiguration() & 0xFF)
 					+ "\n");
 			sb.append("\tbmAttributes: 0x"
-					+ Integer.toHexString(confDesc.getBmAttributes() & 0xFF)
+					+ Integer.toHexString(confDesc.getAttributes() & 0xFF)
 					+ "\n");
 			sb.append("\tMaxPower [mA]: 0x"
 					+ Integer.toHexString(confDesc.getMaxPower() & 0xFF) + " ("
@@ -347,7 +347,7 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 					UsbConfigDescriptor[] tmpConfDesc = dev.getConfig();
 					for (int i = 0; i < tmpConfDesc.length; i++) {
 						if ((tmpConfDesc.equals(confDesc))
-								&& (confDesc.getIConfiguration() > 0)) {
+								&& (confDesc.getConfiguration() > 0)) {
 							long handle = LibusbJava.usb_open(dev);
 							sb.append("\nString descriptors\n");
 							if (handle <= 0) {
@@ -356,7 +356,7 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 							}
 							String configuration = LibusbJava
 									.usb_get_string_simple(handle, confDesc
-											.getIConfiguration());
+											.getConfiguration());
 							if (configuration == null)
 								configuration = "unable to fetch configuration string";
 							sb.append("\tiConfiguration: " + configuration
@@ -375,8 +375,8 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 			UsbInterface int_ = (UsbInterface) component;
 			StringBuffer sb = new StringBuffer("Usb_Interface\n");
 			sb.append("\tnum_altsetting: 0x"
-					+ Integer.toHexString(int_.getNumAltsetting()) + "\n");
-			sb.append("\taltsetting: " + int_.getAltsetting() + "\n");
+					+ Integer.toHexString(int_.getNumAlternateSetting()) + "\n");
+			sb.append("\taltsetting: " + int_.getAlternateSetting() + "\n");
 			textArea.setText(sb.toString());
 		} else if (component instanceof UsbInterfaceDescriptor) {
 			UsbInterfaceDescriptor intDesc = (UsbInterfaceDescriptor) component;
@@ -387,28 +387,28 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 					+ Integer.toHexString(intDesc.getBDescriptorType() & 0xFF)
 					+ "\n");
 			sb.append("\tbInterfaceNumber: 0x"
-					+ Integer.toHexString(intDesc.getBInterfaceNumber() & 0xFF)
+					+ Integer.toHexString(intDesc.getInterfaceNumber() & 0xFF)
 					+ "\n");
 			sb.append("\tbAlternateSetting: 0x"
 					+ Integer
-							.toHexString(intDesc.getBAlternateSetting() & 0xFF)
+							.toHexString(intDesc.getAlternateSetting() & 0xFF)
 					+ "\n");
 			sb.append("\tbNumEndpoints: 0x"
-					+ Integer.toHexString(intDesc.getBNumEndpoints() & 0xFF)
+					+ Integer.toHexString(intDesc.getNumEndpoints() & 0xFF)
 					+ "\n");
 			sb.append("\tbInterfaceClass: 0x"
-					+ Integer.toHexString(intDesc.getBInterfaceClass() & 0xFF)
+					+ Integer.toHexString(intDesc.getInterfaceClass() & 0xFF)
 					+ "\n");
 			sb
 					.append("\tbInterfaceSubClass: 0x"
 							+ Integer.toHexString(intDesc
-									.getBInterfaceSubClass() & 0xFF) + "\n");
+									.getInterfaceSubClass() & 0xFF) + "\n");
 			sb
 					.append("\tbInterfaceProtocol: 0x"
 							+ Integer.toHexString(intDesc
-									.getBInterfaceProtocol() & 0xFF) + "\n");
+									.getInterfaceProtocol() & 0xFF) + "\n");
 			sb.append("\tiInterface: 0x"
-					+ Integer.toHexString(intDesc.getIInterface()) + "\n");
+					+ Integer.toHexString(intDesc.getInterface()) + "\n");
 			sb.append("\textralen: 0x"
 					+ Integer.toHexString(intDesc.getExtralen()) + "\n");
 			sb.append("\textra: " + extraDescriptorToString(intDesc.getExtra()) + "\n");
@@ -419,13 +419,13 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 				while (dev != null) {
 					UsbConfigDescriptor[] confDescs = dev.getConfig();
 					for (int i = 0; i < confDescs.length; i++) {
-						UsbInterface[] ints = confDescs[i].getInterface();
+						UsbInterface[] ints = confDescs[i].getInterfaces();
 						for (int j = 0; j < ints.length; j++) {
 							UsbInterfaceDescriptor[] tmpIntDescs = ints[j]
-									.getAltsetting();
+									.getAlternateSetting();
 							for (int k = 0; k < ints.length; k++) {
 								if (i < tmpIntDescs.length && tmpIntDescs[i].equals(intDesc)
-										&& (intDesc.getIInterface() > 0)) {
+										&& (intDesc.getInterface() > 0)) {
 									long handle = LibusbJava.usb_open(dev);
 									sb.append("\nString descriptors\n");
 									if (handle <= 0) {
@@ -435,7 +435,7 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 									}
 									String interface_ = LibusbJava
 											.usb_get_string_simple(handle,
-													intDesc.getIInterface());
+													intDesc.getInterface());
 									if (interface_ == null)
 										interface_ = "unable to fetch interface string";
 									sb.append("\tiInterface: " + interface_

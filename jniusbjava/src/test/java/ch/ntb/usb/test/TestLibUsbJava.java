@@ -52,21 +52,21 @@ public class TestLibUsbJava {
 	private static void printAltsetting(
 			UsbInterfaceDescriptor interfaceDescript) {
 		System.out.print(String.format("    bInterfaceNumber:   %d\n",
-				interfaceDescript.getBInterfaceNumber()));
+				interfaceDescript.getInterfaceNumber()));
 		System.out.print(String.format("    bAlternateSetting:  %d\n",
-				interfaceDescript.getBAlternateSetting()));
+				interfaceDescript.getAlternateSetting()));
 		System.out.print(String.format("    bNumEndpoints:      %d\n",
-				interfaceDescript.getBNumEndpoints()));
+				interfaceDescript.getNumEndpoints()));
 		System.out.print(String.format("    bInterfaceClass:    %d\n",
-				interfaceDescript.getBInterfaceClass()));
+				interfaceDescript.getInterfaceClass()));
 		System.out.print(String.format("    bInterfaceSubClass: %d\n",
-				interfaceDescript.getBInterfaceSubClass()));
+				interfaceDescript.getInterfaceSubClass()));
 		System.out.print(String.format("    bInterfaceProtocol: %d\n",
-				interfaceDescript.getBInterfaceProtocol()));
+				interfaceDescript.getInterfaceProtocol()));
 		System.out.print(String.format("    iInterface:         %d\n",
-				interfaceDescript.getIInterface()));
+				interfaceDescript.getInterface()));
 
-		for (int i = 0; i < interfaceDescript.getBNumEndpoints(); i++) {
+		for (int i = 0; i < interfaceDescript.getNumEndpoints(); i++) {
 			printEndpoint(interfaceDescript.getEndpoint()[i]);
 		}
 	}
@@ -78,8 +78,8 @@ public class TestLibUsbJava {
 	 *            The interface.
 	 */
 	private static void printInterface(UsbInterface usbInterface) {
-		for (int i = 0; i < usbInterface.getNumAltsetting(); i++) {
-			printAltsetting(usbInterface.getAltsetting()[i]);
+		for (int i = 0; i < usbInterface.getNumAlternateSetting(); i++) {
+			printAltsetting(usbInterface.getAlternateSetting()[i]);
 		}
 	}
 
@@ -91,20 +91,20 @@ public class TestLibUsbJava {
 	 */
 	private static void printConfiguration(UsbConfigDescriptor config) {
 		System.out.print(String.format("  wTotalLength:         %d\n", config
-				.getWTotalLength()));
+				.getTotalLength()));
 		System.out.print(String.format("  bNumInterfaces:       %d\n", config
-				.getBNumInterfaces()));
+				.getNumInterfaces()));
 		System.out.print(String.format("  bConfigurationValue:  %d\n", config
-				.getBConfigurationValue()));
+				.getConfigurationValue()));
 		System.out.print(String.format("  iConfiguration:       %d\n", config
-				.getIConfiguration()));
+				.getConfiguration()));
 		System.out.print(String.format("  bmAttributes:         %02xh\n",
-				config.getBmAttributes()));
+				config.getAttributes()));
 		System.out.print(String.format("  MaxPower:             %d\n", config
 				.getMaxPower()));
 
-		for (int i = 0; i < config.getBNumInterfaces(); i++) {
-			printInterface(config.getInterface()[i]);
+		for (int i = 0; i < config.getNumInterfaces(); i++) {
+			printInterface(config.getInterfaces()[i]);
 		}
 	}
 

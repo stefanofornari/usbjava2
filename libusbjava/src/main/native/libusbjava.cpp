@@ -218,7 +218,7 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
         usb_confDescFID_iConfiguration = env->GetFieldID(usb_confDescClazz, "iConfiguration", "B");
         usb_confDescFID_bmAttributes = env->GetFieldID(usb_confDescClazz, "bmAttributes", "B");
         usb_confDescFID_MaxPower = env->GetFieldID(usb_confDescClazz, "MaxPower", "B");
-        usb_confDescFID_interface_ = env->GetFieldID(usb_confDescClazz, "interface_", "[Lch/ntb/usb/UsbInterface;");
+        usb_confDescFID_interface_ = env->GetFieldID(usb_confDescClazz, "interfaces", "[Lch/ntb/usb/UsbInterface;");
         usb_confDescFID_extra = env->GetFieldID(usb_confDescClazz, "extra", "[B");
         usb_confDescFID_extralen = env->GetFieldID(usb_confDescClazz, "extralen", "I");
 
