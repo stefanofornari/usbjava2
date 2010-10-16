@@ -62,7 +62,7 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      * @return the number of interfaces
      */
     public byte getNumInterfaces() {
-        return (byte)interfaces.length;
+        return (interfaces == null) ? (byte)0 : (byte)interfaces.length;
     }
 
     /**
