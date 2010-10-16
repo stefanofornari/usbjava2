@@ -38,9 +38,12 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
     /**
      * Possible endpoint types (in bmAttributes).
      */
-    public static final int USB_ENDPOINT_TYPE_CONTROL = 0,
-            USB_ENDPOINT_TYPE_ISOCHRONOUS = 1, USB_ENDPOINT_TYPE_BULK = 2,
-            USB_ENDPOINT_TYPE_INTERRUPT = 3;
+    public static final int 
+        USB_ENDPOINT_TYPE_CONTROL     = 0,
+        USB_ENDPOINT_TYPE_ISOCHRONOUS = 1,
+        USB_ENDPOINT_TYPE_BULK        = 2,
+        USB_ENDPOINT_TYPE_INTERRUPT   = 3;
+        
     private byte bEndpointAddress;
     private byte bmAttributes;
     private short wMaxPacketSize;
@@ -200,5 +203,41 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      */
     public void setExtralen(int extralen) {
         this.extralen = extralen;
+    }
+
+    /**
+     * Is the endpoint a control endpoint?
+     *
+     * @return true is the endpoint is a control endpoint, false otherwise
+     */
+    public boolean isTypeControl() {
+        return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_CONTROL;
+    }
+
+    /**
+     * Is the endpoint a isochronous endpoint?
+     *
+     * @return true is the endpoint is a isochronous endpoint, false otherwise
+     */
+    public boolean isTypeIsochronous() {
+        return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_ISOCHRONOUS;
+    }
+
+    /**
+     * Is the endpoint a bulk endpoint?
+     *
+     * @return true is the endpoint is a bulk endpoint, false otherwise
+     */
+    public boolean isTypeBulk() {
+        return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_BULK;
+    }
+
+    /**
+     * Is the endpoint an interrupt endpoint?
+     *
+     * @return true is the endpoint is an interrupt endpoint, false otherwise
+     */
+    public boolean isTypeInterrupt() {
+        return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_INTERRUPT;
     }
 }
