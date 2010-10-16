@@ -62,7 +62,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      *
      * @return the endpoint address
      */
-    public byte getBEndpointAddress() {
+    public byte getEndpointAddress() {
         return bEndpointAddress;
     }
 
@@ -74,7 +74,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      *
      * @return the intervall for polling endpoint data transfers
      */
-    public byte getBInterval() {
+    public byte getInterval() {
         return bInterval;
     }
 
@@ -100,15 +100,15 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      *
      * @return the attributes of this endpoint
      */
-    public byte getBmAttributes() {
+    public byte getAttributes() {
         return bmAttributes;
     }
 
-    public byte getBRefresh() {
+    public byte getRefresh() {
         return bRefresh;
     }
 
-    public byte getBSynchAddress() {
+    public byte getSynchAddress() {
         return bSynchAddress;
     }
 
@@ -136,7 +136,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      *
      * @return the maximum packet size
      */
-    public short getWMaxPacketSize() {
+    public short getMaxPacketSize() {
         return wMaxPacketSize;
     }
 
@@ -149,42 +149,42 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
     /**
      * @param bEndpointAddress the bEndpointAddress to set
      */
-    public void setbEndpointAddress(byte bEndpointAddress) {
+    public void setEndpointAddress(byte bEndpointAddress) {
         this.bEndpointAddress = bEndpointAddress;
     }
 
     /**
      * @param bmAttributes the bmAttributes to set
      */
-    public void setBmAttributes(byte bmAttributes) {
+    public void setAttributes(byte bmAttributes) {
         this.bmAttributes = bmAttributes;
     }
 
     /**
      * @param wMaxPacketSize the wMaxPacketSize to set
      */
-    public void setwMaxPacketSize(short wMaxPacketSize) {
+    public void setMaxPacketSize(short wMaxPacketSize) {
         this.wMaxPacketSize = wMaxPacketSize;
     }
 
     /**
      * @param bInterval the bInterval to set
      */
-    public void setbInterval(byte bInterval) {
+    public void setInterval(byte bInterval) {
         this.bInterval = bInterval;
     }
 
     /**
      * @param bRefresh the bRefresh to set
      */
-    public void setbRefresh(byte bRefresh) {
+    public void setRefresh(byte bRefresh) {
         this.bRefresh = bRefresh;
     }
 
     /**
      * @param bSynchAddress the bSynchAddress to set
      */
-    public void setbSynchAddress(byte bSynchAddress) {
+    public void setSynchAddress(byte bSynchAddress) {
         this.bSynchAddress = bSynchAddress;
     }
 

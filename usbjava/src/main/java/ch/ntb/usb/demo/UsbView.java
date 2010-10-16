@@ -285,7 +285,7 @@ public class UsbView extends JFrame {
 						outEPs = new UsbEndpointDescriptor[endpoints.length];
 						inEPs = new UsbEndpointDescriptor[endpoints.length];
 						for (int i = 0; i < endpoints.length; i++) {
-							int epAddr = endpoints[i].getBEndpointAddress() & 0xFF;
+							int epAddr = endpoints[i].getEndpointAddress() & 0xFF;
 							if ((epAddr & 0x80) > 0) {
 								// is IN endpoint
 								inEPs[nofInEPs++] = endpoints[i];
@@ -304,16 +304,16 @@ public class UsbView extends JFrame {
 					testDevice.setInterface(interface_);
 					if (inEPs != null) {
 						for (int i = 0; i < nofInEPs; i++) {
-							int type = inEPs[i].getBmAttributes() & 0x03;
+							int type = inEPs[i].getAttributes() & 0x03;
 							switch (type) {
 							case UsbEndpointDescriptor.USB_ENDPOINT_TYPE_BULK:
 								testDevice.setInEPBulk(inEPs[i]
-										.getBEndpointAddress() & 0xff);
+										.getEndpointAddress() & 0xff);
 								testDevice.setInMode(TransferMode.Bulk);
 								break;
 							case UsbEndpointDescriptor.USB_ENDPOINT_TYPE_INTERRUPT:
 								testDevice.setInEPInt(inEPs[i]
-										.getBEndpointAddress() & 0xff);
+										.getEndpointAddress() & 0xff);
 								testDevice.setInMode(TransferMode.Interrupt);
 								break;
 							default:
@@ -323,16 +323,16 @@ public class UsbView extends JFrame {
 					}
 					if (outEPs != null) {
 						for (int i = 0; i < nofOutEPs; i++) {
-							int type = outEPs[i].getBmAttributes() & 0x03;
+							int type = outEPs[i].getAttributes() & 0x03;
 							switch (type) {
 							case UsbEndpointDescriptor.USB_ENDPOINT_TYPE_BULK:
 								testDevice.setOutEPBulk(outEPs[i]
-										.getBEndpointAddress() & 0xff);
+										.getEndpointAddress() & 0xff);
 								testDevice.setOutMode(TransferMode.Bulk);
 								break;
 							case UsbEndpointDescriptor.USB_ENDPOINT_TYPE_INTERRUPT:
 								testDevice.setOutEPInt(outEPs[i]
-										.getBEndpointAddress() & 0xff);
+										.getEndpointAddress() & 0xff);
 								testDevice.setOutMode(TransferMode.Interrupt);
 								break;
 							default:

@@ -459,20 +459,20 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 					+ Integer.toHexString(epDesc.getBDescriptorType() & 0xFF)
 					+ "\n");
 			sb.append("\tbEndpointAddress: 0x"
-					+ Integer.toHexString(epDesc.getBEndpointAddress() & 0xFF)
+					+ Integer.toHexString(epDesc.getEndpointAddress() & 0xFF)
 					+ "\n");
 			sb.append("\tbmAttributes: 0x"
-					+ Integer.toHexString(epDesc.getBmAttributes() & 0xFF)
+					+ Integer.toHexString(epDesc.getAttributes() & 0xFF)
 					+ "\n");
 			sb.append("\twMaxPacketSize: 0x"
-					+ Integer.toHexString(epDesc.getWMaxPacketSize() & 0xFFFF)
-					+ " (" + epDesc.getWMaxPacketSize() + ")\n");
+					+ Integer.toHexString(epDesc.getMaxPacketSize() & 0xFFFF)
+					+ " (" + epDesc.getMaxPacketSize() + ")\n");
 			sb.append("\tbInterval: 0x"
-					+ Integer.toHexString(epDesc.getBInterval() & 0xFF) + "\n");
+					+ Integer.toHexString(epDesc.getInterval() & 0xFF) + "\n");
 			sb.append("\tbRefresh: 0x"
-					+ Integer.toHexString(epDesc.getBRefresh() & 0xFF) + "\n");
+					+ Integer.toHexString(epDesc.getRefresh() & 0xFF) + "\n");
 			sb.append("\tbSynchAddress: 0x"
-					+ Integer.toHexString(epDesc.getBSynchAddress()) + "\n");
+					+ Integer.toHexString(epDesc.getSynchAddress()) + "\n");
 			sb.append("\textralen: 0x"
 					+ Integer.toHexString(epDesc.getExtralen()) + "\n");
 			sb.append("\textra: " + extraDescriptorToString(epDesc.getExtra()) + "\n");

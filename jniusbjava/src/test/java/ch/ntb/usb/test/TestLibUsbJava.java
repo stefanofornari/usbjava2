@@ -30,17 +30,17 @@ public class TestLibUsbJava {
 	 */
 	private static void printEndpoint(UsbEndpointDescriptor endpoint) {
 		System.out.print(String.format("      bEndpointAddress: %02xh\n",
-				endpoint.getBEndpointAddress()));
+				endpoint.getEndpointAddress()));
 		System.out.print(String.format("      bmAttributes:     %02xh\n",
-				endpoint.getBmAttributes()));
+				endpoint.getAttributes()));
 		System.out.print(String.format("      wMaxPacketSize:   %d\n", endpoint
-				.getWMaxPacketSize()));
+				.getMaxPacketSize()));
 		System.out.print(String.format("      bInterval:        %d\n", endpoint
-				.getBInterval()));
+				.getInterval()));
 		System.out.print(String.format("      bRefresh:         %d\n", endpoint
-				.getBRefresh()));
+				.getRefresh()));
 		System.out.print(String.format("      bSynchAddress:    %d\n", endpoint
-				.getBSynchAddress()));
+				.getSynchAddress()));
 	}
 
 	/**
