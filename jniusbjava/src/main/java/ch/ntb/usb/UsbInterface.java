@@ -43,7 +43,7 @@ public class UsbInterface {
      * @return the number of alternate settings
      */
     public int getNumAlternateSetting() {
-        return num_altsetting;
+       return (altsetting == null) ? 0 : altsetting.length;
     }
 
     /**
@@ -58,5 +58,23 @@ public class UsbInterface {
      */
     public void setNumAlternateSetting(int num_altsetting) {
         this.num_altsetting = num_altsetting;
+    }
+
+    /**
+     * Determines if the given interface supports the given class value
+     *
+     * @param c the class to check
+     *
+     * @return true if one of the interface descriptors belongs to the given
+     *         class, false otherwise
+     */
+    public boolean isInClass(byte c) {
+        for (int i=0; i<getNumAlternateSetting(); ++i) {
+            if (altsetting[i].getInterfaceClass() == c) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
