@@ -31,7 +31,7 @@ public class LibusbJava {
         devDesc.setProductId(devInfo.getIdProduct());
 
         epDesc.setwMaxPacketSize((short)devInfo.getMaxDataSize());
-        intDesc.setEndpoint(new UsbEndpointDescriptor[] {epDesc});
+        intDesc.setEndpoints(new UsbEndpointDescriptor[] {epDesc});
         irf.setAlternateSetting(new UsbInterfaceDescriptor[] {intDesc});
         confDesc.setInterfaces(new UsbInterface[] {irf});
 
