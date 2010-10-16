@@ -23,7 +23,7 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      */
     public static final int USB_MAXCONFIG = 8;
     private short wTotalLength;
-    private byte bNumInterfaces;
+    private byte bNumInterfaces; // this is used by the JNI implementation
     private byte bConfigurationValue;
     private byte iConfiguration;
     private byte bmAttributes;
@@ -62,7 +62,7 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      * @return the number of interfaces
      */
     public byte getNumInterfaces() {
-        return bNumInterfaces;
+        return (byte)interfaces.length;
     }
 
     /**
@@ -125,28 +125,29 @@ public class UsbConfigDescriptor extends UsbDescriptor {
     /**
      * Returns the USB interface descriptor given the index .<br>
      *
-     * @param index the interface index
-     * @param alt the alternate settings index
+     * @param setting the alternate setting
      *
      * @return the USB interface descriptors
      *
      * @throws IllegalArgumentException if index is out of range
      */
-    public UsbInterface getInterface(int index, int alt) {
-        UsbInterface i = getInterface(index);
-        UsbInterfaceDescriptor[] interfaceSettings = i.getAlternateSetting();
+    public UsbInterface getInterfacewithAlternateSetting(int setting) {
+        for (UsbInterface i: interfaces) {
+            UsbInterfaceDescriptor[] interfaceSettings = i.getAlternateSetting();
 
-        /*
-        if (i.getAlternateSetting() == null) {
-            throw new IllegalArgumentException(" not initializated yet");
+            if (interfaceSettings == null) {
+                continue;
+            }
+
+            
+            for (UsbInterfaceDescriptor j: interfaceSettings) {
+                if (j.getAlternateSetting() == setting) {
+                    return i;
+                }
+            }
         }
-         */
 
-        if ((alt < 0) || (alt >= interfaceSettings.length)) {
-            throw new IllegalArgumentException("index cannot be < 0 or >= " + interfaceSettings.length);
-        }
-
-        return i;
+        return null;
     }
 
     /**
@@ -176,16 +177,6 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      */
     public void setTotalLength(short wTotalLength) {
         this.wTotalLength = wTotalLength;
-    }
-
-    /**
-     * @param bNumInterfaces the bNumInterfaces to set
-     */
-    //
-    // TODO: to be removed???
-    //
-    public void setNumInterfaces(byte bNumInterfaces) {
-        this.bNumInterfaces = bNumInterfaces;
     }
 
     /**
@@ -240,6 +231,6 @@ public class UsbConfigDescriptor extends UsbDescriptor {
     @Override
     public String toString() {
         return "Usb_Config_Descriptor bNumInterfaces: 0x"
-                + Integer.toHexString(bNumInterfaces);
+                + Integer.toHexString(getNumInterfaces());
     }
 }

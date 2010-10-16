@@ -55,6 +55,10 @@ public class UsbConfigDescriptorTest extends TestCase {
         }
 
         if (descriptors) {
+            INT_DESC1[0].setAlternateSetting((byte)0);
+            INT_DESC2[0].setAlternateSetting((byte)1);
+            INT_DESC2[1].setAlternateSetting((byte)2);
+
             INTERFACES1[0].setAlternateSetting(INT_DESC1);
             INTERFACES1[1].setAlternateSetting(INT_DESC2);
         }
@@ -102,33 +106,23 @@ public class UsbConfigDescriptorTest extends TestCase {
     public void testGetInterfaceValidIndex() {
         UsbConfigDescriptor desc = buildConfigDescriptor(true, true);
 
-        assertEquals(INTERFACES1[0], desc.getInterface(0));
-        assertEquals(INTERFACES1[1], desc.getInterface(1));
-        assertEquals(INTERFACES1[2], desc.getInterface(2));
+        assertSame(INTERFACES1[0], desc.getInterface(0));
+        assertSame(INTERFACES1[1], desc.getInterface(1));
+        assertSame(INTERFACES1[2], desc.getInterface(2));
 
+    }
+
+    public void testGetInterfaceWithValidAltSettingsIndex() {
+        UsbConfigDescriptor desc = buildConfigDescriptor(true, true);
+
+        assertSame(INTERFACES1[0], desc.getInterfacewithAlternateSetting(0));
+        assertSame(INTERFACES1[1], desc.getInterfacewithAlternateSetting(1));
+        assertSame(INTERFACES1[1], desc.getInterfacewithAlternateSetting(2));
     }
 
     public void testGetInterfaceWithInvalidAltSettingsIndex() {
         UsbConfigDescriptor desc = buildConfigDescriptor(true, true);
-        
-        try {
-            desc.getInterface(0, -1);
-            fail("index out of bound must be caught");
-        } catch (IllegalArgumentException e) {
-            //
-            // OK
-            //
-        }
 
-        try {
-            desc.getInterface(0, 1);
-            fail("index out of bound must be caught");
-        } catch (IllegalArgumentException e) {
-            //
-            // OK
-            //
-        }
+        assertNull(desc.getInterfacewithAlternateSetting(10));
     }
-
-
 }
