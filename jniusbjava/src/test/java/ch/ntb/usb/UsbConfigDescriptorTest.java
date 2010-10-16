@@ -115,14 +115,14 @@ public class UsbConfigDescriptorTest extends TestCase {
     public void testGetInterfaceWithValidAltSettingsIndex() {
         UsbConfigDescriptor desc = buildConfigDescriptor(true, true);
 
-        assertSame(INTERFACES1[0], desc.getInterfacewithAlternateSetting(0));
-        assertSame(INTERFACES1[1], desc.getInterfacewithAlternateSetting(1));
-        assertSame(INTERFACES1[1], desc.getInterfacewithAlternateSetting(2));
+        assertSame(INTERFACES1[0], desc.getInterfaceByAlternateSetting(0));
+        assertSame(INTERFACES1[1], desc.getInterfaceByAlternateSetting(1));
+        assertSame(INTERFACES1[1], desc.getInterfaceByAlternateSetting(2));
     }
 
     public void testGetInterfaceWithInvalidAltSettingsIndex() {
         UsbConfigDescriptor desc = buildConfigDescriptor(true, true);
 
-        assertNull(desc.getInterfacewithAlternateSetting(10));
+        assertNull(desc.getInterfaceByAlternateSetting(10));
     }
 }

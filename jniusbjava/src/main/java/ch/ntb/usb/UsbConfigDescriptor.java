@@ -131,7 +131,7 @@ public class UsbConfigDescriptor extends UsbDescriptor {
      *
      * @throws IllegalArgumentException if index is out of range
      */
-    public UsbInterface getInterfacewithAlternateSetting(int setting) {
+    public UsbInterface getInterfaceByAlternateSetting(int setting) {
         for (UsbInterface i: interfaces) {
             UsbInterfaceDescriptor[] interfaceSettings = i.getAlternateSetting();
 
