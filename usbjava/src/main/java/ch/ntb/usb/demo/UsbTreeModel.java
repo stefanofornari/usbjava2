@@ -107,7 +107,7 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 			return altSettings[index];
 		} else if (parent instanceof UsbInterfaceDescriptor) {
 			UsbEndpointDescriptor[] endpoints = ((UsbInterfaceDescriptor) parent)
-					.getEndpoint();
+					.getEndpoints();
 			if (index >= endpoints.length)
 				return null;
 			return endpoints[index];
@@ -150,7 +150,7 @@ public class UsbTreeModel implements TreeModel, TreeSelectionListener {
 		} else if (parent instanceof UsbInterface) {
 			return ((UsbInterface) parent).getAlternateSetting().length;
 		} else if (parent instanceof UsbInterfaceDescriptor) {
-			return ((UsbInterfaceDescriptor) parent).getEndpoint().length;
+			return ((UsbInterfaceDescriptor) parent).getEndpoints().length;
 		}
 		return 0;
 	}

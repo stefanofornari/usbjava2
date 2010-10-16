@@ -69,7 +69,7 @@ public class Device {
             for (int j = 0; j < int_.length; j++) {
                 UsbInterfaceDescriptor[] intDesc = int_[j].getAlternateSetting();
                 for (int k = 0; k < intDesc.length; k++) {
-                    UsbEndpointDescriptor[] epDesc = intDesc[k].getEndpoint();
+                    UsbEndpointDescriptor[] epDesc = intDesc[k].getEndpoints();
                     for (int l = 0; l < epDesc.length; l++) {
                         setMaxPacketSize(Math.max(epDesc[l].getWMaxPacketSize(), maxPacketSize));
                     }

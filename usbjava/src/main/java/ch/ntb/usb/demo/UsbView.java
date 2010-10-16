@@ -259,7 +259,7 @@ public class UsbView extends JFrame {
 					Object usbObj = parent.getLastPathComponent();
 					if (usbObj instanceof UsbInterfaceDescriptor) {
 						UsbInterfaceDescriptor usbIntDesc = (UsbInterfaceDescriptor) usbObj;
-						endpoints = usbIntDesc.getEndpoint();
+						endpoints = usbIntDesc.getEndpoints();
 						interface_ = usbIntDesc.getInterfaceNumber();
 						altinterface = usbIntDesc.getAlternateSetting();
 					} else if (usbObj instanceof UsbConfigDescriptor) {

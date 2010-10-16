@@ -40,7 +40,7 @@ public class Utils {
 									out.println("\t\t\t\t"
 											+ intDesc[k].toString());
 									UsbEndpointDescriptor[] epDesc = intDesc[k]
-											.getEndpoint();
+											.getEndpoints();
 									if (epDesc != null) {
 										for (int e = 0; e < epDesc.length; e++) {
 											out.println("\t\t\t\t\t"
