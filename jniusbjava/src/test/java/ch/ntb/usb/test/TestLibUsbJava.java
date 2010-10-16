@@ -67,7 +67,7 @@ public class TestLibUsbJava {
 				interfaceDescript.getInterface()));
 
 		for (int i = 0; i < interfaceDescript.getNumEndpoints(); i++) {
-			printEndpoint(interfaceDescript.getEndpoint()[i]);
+			printEndpoint(interfaceDescript.getEndpoints()[i]);
 		}
 	}
 
