@@ -26,6 +26,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * Maximum number of endpoints
      */
     public static final int USB_MAXENDPOINTS = 32;
+    
     /**
      * Endpoint address mask (in bEndpointAddress).
      */
@@ -35,6 +36,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * Endpoint type mask (in bmAttributes).
      */
     public static final int USB_ENDPOINT_TYPE_MASK = 0x03;
+    
     /**
      * Possible endpoint types (in bmAttributes).
      */
@@ -239,5 +241,14 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      */
     public boolean isTypeInterrupt() {
         return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_INTERRUPT;
+    }
+
+    /*
+     * I do not know how to retrieve a real value... for now it is always true
+     *
+     * @return true
+     */
+    public boolean isInput() {
+        return true;
     }
 }

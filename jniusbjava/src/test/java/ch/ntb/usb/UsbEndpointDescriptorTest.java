@@ -43,4 +43,12 @@ public class UsbEndpointDescriptorTest extends TestCase {
         assertTrue(ENDPOINT.isTypeInterrupt());
     }
 
+    public void testIsInput() {
+        //
+        // I do not know how to retrieve a real value... for now it is always
+        // true
+        //
+        assertTrue(ENDPOINT.isInput());
+    }
+
 }
