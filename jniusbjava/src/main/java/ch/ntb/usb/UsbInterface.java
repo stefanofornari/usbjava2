@@ -22,6 +22,8 @@ public class UsbInterface {
      */
     public static final int USB_MAXALTSETTING = 128; /* Hard limit */
 
+    public static final int CLASS_IMAGE = 0x06;
+
     private UsbInterfaceDescriptor[] altsetting;
     private int num_altsetting;
 
