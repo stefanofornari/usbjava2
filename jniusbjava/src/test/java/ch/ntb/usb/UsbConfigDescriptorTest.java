@@ -58,6 +58,7 @@ public class UsbConfigDescriptorTest extends TestCase {
             INT_DESC1[0].setAlternateSetting((byte)0);
             INT_DESC2[0].setAlternateSetting((byte)1);
             INT_DESC2[1].setAlternateSetting((byte)2);
+            INT_DESC2[1].setInterfaceClass((byte)UsbInterface.CLASS_IMAGE);
 
             INTERFACES1[0].setAlternateSetting(INT_DESC1);
             INTERFACES1[1].setAlternateSetting(INT_DESC2);
@@ -124,5 +125,13 @@ public class UsbConfigDescriptorTest extends TestCase {
         UsbConfigDescriptor desc = buildConfigDescriptor(true, true);
 
         assertNull(desc.getInterfaceByAlternateSetting(10));
+    }
+
+    public void testGetInterfaceByClass() {
+        UsbConfigDescriptor desc = buildConfigDescriptor(true, true);
+
+        assertNull(desc.getInterfaceByClass(0x01));
+
+        assertSame(INTERFACES1[1], desc.getInterfaceByClass(UsbInterface.CLASS_IMAGE));
     }
 }

@@ -123,7 +123,7 @@ public class UsbConfigDescriptor extends UsbDescriptor {
     }
 
     /**
-     * Returns the USB interface descriptor given the index .<br>
+     * Returns the USB interface descriptor given an alternate setting .<br>
      *
      * @param setting the alternate setting
      *
@@ -142,6 +142,33 @@ public class UsbConfigDescriptor extends UsbDescriptor {
             
             for (UsbInterfaceDescriptor j: interfaceSettings) {
                 if (j.getAlternateSetting() == setting) {
+                    return i;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the USB interface descriptor given the interface class <br>
+     *
+     * @param interfaceClass the interface class
+     *
+     * @return the USB interface descriptors
+     *
+     * @throws IllegalArgumentException if index is out of range
+     */
+    public UsbInterface getInterfaceByClass(int interfaceClass) {
+        for (UsbInterface i: interfaces) {
+            UsbInterfaceDescriptor[] interfaceSettings = i.getAlternateSetting();
+
+            if (interfaceSettings == null) {
+                continue;
+            }
+
+            for (UsbInterfaceDescriptor j: interfaceSettings) {
+                if (j.getInterfaceClass() == interfaceClass) {
                     return i;
                 }
             }
