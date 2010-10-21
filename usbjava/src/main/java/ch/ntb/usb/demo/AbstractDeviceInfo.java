@@ -48,6 +48,54 @@ public abstract class AbstractDeviceInfo {
 
 	private String serialVersion = null;
 
+        private byte interfaceClass;
+
+        private byte interfaceSubClass;
+
+        private byte interfaceProtocol;
+
+    /**
+     * @return the interfaceClass
+     */
+    public byte getInterfaceClass() {
+        return interfaceClass;
+    }
+
+    /**
+     * @param interfaceClass the interfaceClass to set
+     */
+    public void setInterfaceClass(byte interfaceClass) {
+        this.interfaceClass = interfaceClass;
+    }
+
+    /**
+     * @return the interfaceSubClass
+     */
+    public byte getInterfaceSubClass() {
+        return interfaceSubClass;
+    }
+
+    /**
+     * @param interfaceSubClass the interfaceSubClass to set
+     */
+    public void setInterfaceSubClass(byte interfaceSubClass) {
+        this.interfaceSubClass = interfaceSubClass;
+    }
+
+    /**
+     * @return the interfaceProtocol
+     */
+    public byte getInterfaceProtocol() {
+        return interfaceProtocol;
+    }
+
+    /**
+     * @param interfaceProtocol the interfaceProtocol to set
+     */
+    public void setInterfaceProtocol(byte interfaceProtocol) {
+        this.interfaceProtocol = interfaceProtocol;
+    }
+
 	public static enum TransferMode {
 		Bulk, Interrupt
 	}
