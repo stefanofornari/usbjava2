@@ -24,8 +24,8 @@ import ch.ntb.usb.UsbBus;
 import ch.ntb.usb.UsbConfigDescriptor;
 import ch.ntb.usb.UsbDeviceDescriptor;
 import ch.ntb.usb.Utils;
-import ch.ntb.usb.demo.AbstractDeviceInfo;
-import ch.ntb.usb.demo.AbstractDeviceInfo.TransferMode;
+import ch.ntb.usb.AbstractDeviceInfo;
+import ch.ntb.usb.AbstractDeviceInfo.TransferMode;
 
 public class DeviceTest extends TestCase {
 
@@ -517,6 +517,10 @@ public class DeviceTest extends TestCase {
         doOpen();
         assertEquals(devinfo.getMaxDataSize(), dev.getMaxPacketSize());
         doClose();
+    }
+
+    public void testGetVendor() {
+        assertEquals(devinfo.getVendor(), dev.getVendor());
     }
 
     public void tearDown() throws Exception {
