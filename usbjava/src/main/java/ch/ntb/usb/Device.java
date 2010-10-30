@@ -851,6 +851,24 @@ public class Device {
         setResetOnFirstOpen(enable);
         setResetTimeout(timeout);
     }
+    
+    /**
+     * Returns the display name of this device, usually the combination of 
+     * vendor and model. If the product id is not found "(Unknown)" will be used.
+     * 
+     * Note that in the vendor name Inc., Ltd, Corp. ecc are stripped out.
+     * 
+     * @return the display name of this device
+     */
+    public String getDisplayName() {
+
+        return new DeviceDatabase().getModelDisplayName(
+                   String.format("%1$04x", getVendorId()),
+                   String.format("%1$04x", getProductId())
+        );
+    }
+
+    // ------------------------------------------------------- Protected methods
 
     /**
      * Returns the optional filename which is set when there are multiple

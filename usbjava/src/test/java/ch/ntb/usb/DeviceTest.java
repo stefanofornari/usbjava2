@@ -522,6 +522,12 @@ public class DeviceTest extends TestCase {
     public void testGetVendor() {
         //assertEquals(devinfo.getVendor(), dev.getVendor());
     }
+    
+    public void testDisplayName() {
+       assertEquals("Canon EOS 1000D", dev.getDisplayName()); 
+    }
+
+    // -------------------------------------------------------------------------
 
     public void tearDown() throws Exception {
         if (dev != null && dev.isOpen()) {
