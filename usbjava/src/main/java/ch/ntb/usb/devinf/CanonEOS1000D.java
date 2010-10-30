@@ -22,16 +22,15 @@
 package ch.ntb.usb.devinf;
 
 import ch.ntb.usb.USB;
-import ch.ntb.usb.devinf.AbstractDeviceInfo;
 
-public class Canon1000D extends AbstractDeviceInfo {
+public class CanonEOS1000D extends AbstractDeviceInfo {
 
     private boolean connected;
 
     @Override
     public void initValues() {
-        setIdVendor((short) 0x8235);
-        setIdProduct((short) 0x0222);
+        setIdVendor((short) 0x04a9);
+        setIdProduct((short) 0x317b);
         setTimeout(2000);
         setConfiguration(1);
         setInterface(0);
@@ -53,13 +52,13 @@ public class Canon1000D extends AbstractDeviceInfo {
         setInterfaceProtocol((byte) 0x00);
     }
 
-    public Canon1000D(boolean connected) {
+    public CanonEOS1000D(boolean connected) {
         this.connected = connected;
         setInterfaceClass((byte)((connected) ? 0x06 : 0x00));
 
     }
 
-    public Canon1000D() {
+    public CanonEOS1000D() {
         this(true);
     }
 
