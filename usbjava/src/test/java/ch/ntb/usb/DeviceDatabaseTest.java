@@ -89,5 +89,13 @@ public class DeviceDatabaseTest extends TestCase {
         assertEquals("Canon EOS 1000D", model);
     }
 
+    public void GetDisplayNameWithVendorOnly() {
+        DeviceDatabase d = new DeviceDatabase();
+
+        String model = d.getModelDisplayName("04a9", "0000");
+
+        assertEquals("Canon (Unknown)", model);
+    }
+
 
 }

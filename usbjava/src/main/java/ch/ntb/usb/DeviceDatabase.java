@@ -80,7 +80,11 @@ public class DeviceDatabase {
         ManufacturerModels m = getVendorModels(vendorId);
 
         if (m != null) {
-            return m.getSimpleVendorName() + ' ' + m.getModel(modelId);
+            String model = m.getModel(modelId);
+
+            return (model != null) ?
+                   (m.getSimpleVendorName() + ' ' + m.getModel(modelId)) :
+                   (m.getSimpleVendorName() + " (Unknown)");
         }
 
         return null;
