@@ -7,7 +7,7 @@
  */
 package ch.ntb.usb.demo;
 
-import ch.ntb.usb.AbstractDeviceInfo;
+import ch.ntb.usb.devinf.AbstractDeviceInfo;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;

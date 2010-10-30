@@ -5,7 +5,10 @@
  * http://libusbjava.sourceforge.net
  * This library is covered by the LGPL, read LGPL.txt for details.
  */
-package ch.ntb.usb;
+package ch.ntb.usb.devinf;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class AbstractDeviceInfo {
 
@@ -31,6 +34,7 @@ public abstract class AbstractDeviceInfo {
     private byte interfaceClass;
     private byte interfaceSubClass;
     private byte interfaceProtocol;
+
 
     /**
      * @return the interfaceClass

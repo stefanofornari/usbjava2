@@ -21,8 +21,8 @@ import ch.ntb.usb.USB;
 import ch.ntb.usb.USBException;
 import ch.ntb.usb.UsbBus;
 import ch.ntb.usb.Utils;
-import ch.ntb.usb.AbstractDeviceInfo;
-import ch.ntb.usb.AbstractDeviceInfo.TransferMode;
+import ch.ntb.usb.devinf.AbstractDeviceInfo;
+import ch.ntb.usb.devinf.AbstractDeviceInfo.TransferMode;
 
 public class MemoryLeakTest extends TestCase {
 

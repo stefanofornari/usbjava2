@@ -7,6 +7,7 @@
  */
 package ch.ntb.usb;
 
+import ch.ntb.usb.devinf.AbstractDeviceInfo;
 import java.io.UnsupportedEncodingException;
 
 /**

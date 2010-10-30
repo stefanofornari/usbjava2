@@ -19,10 +19,10 @@
  * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301 USA.
  */
-package ch.ntb.usb.test.devices;
+package ch.ntb.usb.devinf;
 
 import ch.ntb.usb.USB;
-import ch.ntb.usb.AbstractDeviceInfo;
+import ch.ntb.usb.devinf.AbstractDeviceInfo;
 
 public class Canon1000D extends AbstractDeviceInfo {
 

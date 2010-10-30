@@ -5,10 +5,10 @@
  * http://libusbjava.sourceforge.net
  * This library is covered by the LGPL, read LGPL.txt for details.
  */
-package ch.ntb.usb.test.devices;
+package ch.ntb.usb.devinf;
 
 import ch.ntb.usb.USB;
-import ch.ntb.usb.AbstractDeviceInfo;
+import ch.ntb.usb.devinf.AbstractDeviceInfo;
 
 public class CY7C68013A extends AbstractDeviceInfo {
 
