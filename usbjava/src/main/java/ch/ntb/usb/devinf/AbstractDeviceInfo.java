@@ -12,8 +12,8 @@ import java.util.Map;
 
 public abstract class AbstractDeviceInfo {
 
-    private short idVendor;
-    private short idProduct;
+    private short vendorId;
+    private short productId;
     private String filename = null;
     private String busName = null;
     private int timeout;
@@ -96,12 +96,12 @@ public abstract class AbstractDeviceInfo {
         return configuration;
     }
 
-    public short getIdProduct() {
-        return idProduct;
+    public short getProductId() {
+        return productId;
     }
 
-    public short getIdVendor() {
-        return idVendor;
+    public short getVendorId() {
+        return vendorId;
     }
 
     public int getInEPBulk() {
@@ -145,11 +145,11 @@ public abstract class AbstractDeviceInfo {
     }
 
     public void setIdProduct(short idProduct) {
-        this.idProduct = idProduct;
+        this.productId = idProduct;
     }
 
     public void setIdVendor(short idVendor) {
-        this.idVendor = idVendor;
+        this.vendorId = idVendor;
     }
 
     public void setInEPBulk(int in_ep_bulk) {

@@ -56,7 +56,7 @@ public class DeviceTest extends TestCase {
         readData = new byte[testData.length];
         // initialise the device
         LibusbJava.usb_set_debug(255);
-        dev = USB.getDevice(devinfo.getIdVendor(), devinfo.getIdProduct(),
+        dev = USB.getDevice(devinfo.getVendorId(), devinfo.getProductId(),
                 devinfo.getBusName(), devinfo.getFilename());
         assertNotNull(dev);
 
@@ -75,8 +75,8 @@ public class DeviceTest extends TestCase {
         dev.updateDescriptors();
         UsbDeviceDescriptor devDescriptor = dev.getDeviceDescriptor();
         assertNotNull(devDescriptor);
-        assertEquals(devinfo.getIdProduct(), devDescriptor.getProductId());
-        assertEquals(devinfo.getIdVendor(), devDescriptor.getVendorId());
+        assertEquals(devinfo.getProductId(), devDescriptor.getProductId());
+        assertEquals(devinfo.getVendorId(), devDescriptor.getVendorId());
         UsbConfigDescriptor confDescriptors[] = dev.getConfigDescriptors();
         assertNotNull(confDescriptors);
         assertTrue(confDescriptors[0].getInterfaces().length > 0);
@@ -147,7 +147,7 @@ public class DeviceTest extends TestCase {
         assertNotNull(oldFilename);
         assertNotNull(oldBusName);
         log.info("filename: " + oldFilename + ", busName: " + oldBusName);
-        Device dev2 = USB.getDevice(devinfo.getIdVendor(), devinfo.getIdProduct());
+        Device dev2 = USB.getDevice(devinfo.getVendorId(), devinfo.getProductId());
         doClose();
         assertEquals(dev, dev2);
     }
@@ -161,7 +161,7 @@ public class DeviceTest extends TestCase {
         assertNotNull(oldFilename);
         assertNotNull(oldBusName);
         log.info("filename: " + oldFilename + ", busName: " + oldBusName);
-        Device dev2 = USB.getDevice(devinfo.getIdVendor(), devinfo.getIdProduct(), oldBusName, null);
+        Device dev2 = USB.getDevice(devinfo.getVendorId(), devinfo.getProductId(), oldBusName, null);
         doClose();
         assertEquals(dev, dev2);
     }
@@ -175,7 +175,7 @@ public class DeviceTest extends TestCase {
         assertNotNull(oldFilename);
         assertNotNull(oldBusName);
         log.info("filename: " + oldFilename + ", busName: " + oldBusName);
-        Device dev2 = USB.getDevice(devinfo.getIdVendor(), devinfo.getIdProduct(), null, oldFilename);
+        Device dev2 = USB.getDevice(devinfo.getVendorId(), devinfo.getProductId(), null, oldFilename);
         doClose();
         assertEquals(dev, dev2);
     }
@@ -189,7 +189,7 @@ public class DeviceTest extends TestCase {
         assertNotNull(oldFilename);
         assertNotNull(oldBusName);
         log.info("filename: " + oldFilename + ", busName: " + oldBusName);
-        Device dev2 = USB.getDevice(devinfo.getIdVendor(), devinfo.getIdProduct(), oldBusName, oldFilename);
+        Device dev2 = USB.getDevice(devinfo.getVendorId(), devinfo.getProductId(), oldBusName, oldFilename);
         doClose();
         assertEquals(dev, dev2);
     }
@@ -489,11 +489,11 @@ public class DeviceTest extends TestCase {
     }
 
     public void testGetIdProduct() {
-        assertEquals(devinfo.getIdProduct(), dev.getProductId());
+        assertEquals(devinfo.getProductId(), dev.getProductId());
     }
 
     public void testGetIdVendor() {
-        assertEquals(devinfo.getIdVendor(), dev.getVendorId());
+        assertEquals(devinfo.getVendorId(), dev.getVendorId());
     }
 
     public void testGetAltinterface() throws Exception {

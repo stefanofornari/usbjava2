@@ -52,7 +52,7 @@ public class MemoryLeakTest extends TestCase {
         readData = new byte[testData.length];
         // initialise the device
         LibusbJava.usb_set_debug(255);
-        dev = USB.getDevice(devinfo.getIdVendor(), devinfo.getIdProduct());
+        dev = USB.getDevice(devinfo.getVendorId(), devinfo.getProductId());
         assertNotNull(dev);
 
         // print the devices

@@ -78,8 +78,8 @@ public class TestApp extends JFrame {
 		this.setContentPane(getRootPanel());
 
 		// read default values
-		this.vendorIDText.setText(toHexString(dev.getIdVendor() & 0xffff));
-		this.productIDText.setText(toHexString(dev.getIdProduct() & 0xffff));
+		this.vendorIDText.setText(toHexString(dev.getVendorId() & 0xffff));
+		this.productIDText.setText(toHexString(dev.getProductId() & 0xffff));
 		this.configurationText.setText(new Integer(dev.getConfiguration())
 				.toString());
 		this.interfaceText.setText(new Integer(dev.getInterface()).toString());

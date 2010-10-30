@@ -60,7 +60,7 @@ public class TestDevice extends AbstractDeviceInfo {
 	}
 
 	public void openUsbDevice() {
-		dev = USB.getDevice(getIdVendor(), getIdProduct());
+		dev = USB.getDevice(getVendorId(), getProductId());
 		try {
 			dev.open(getConfiguration(), getInterface(), getAltinterface());
 			logger.info("device opened, interface claimed");
