@@ -73,6 +73,14 @@ public class DeviceDatabaseTest extends TestCase {
         assertNull(model);
     }
 
+    public void testGetNotExistingVendorModel() {
+        DeviceDatabase d = new DeviceDatabase();
+
+        String model = d.getModel("0000", "317b");
+
+        assertNull(model);
+    }
+
     public void testGetExistingModel() {
         DeviceDatabase d = new DeviceDatabase();
 
@@ -89,12 +97,20 @@ public class DeviceDatabaseTest extends TestCase {
         assertEquals("Canon EOS 1000D", model);
     }
 
-    public void GetDisplayNameWithVendorOnly() {
+    public void testGetDisplayNameWithVendorOnly() {
         DeviceDatabase d = new DeviceDatabase();
 
         String model = d.getModelDisplayName("04a9", "0000");
 
         assertEquals("Canon (Unknown)", model);
+    }
+
+    public void testGetDisplayNameWithNoVendor() {
+        DeviceDatabase d = new DeviceDatabase();
+
+        String model = d.getModelDisplayName("0000", "317b");
+
+        assertNull(model);
     }
 
 
