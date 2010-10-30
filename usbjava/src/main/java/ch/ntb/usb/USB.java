@@ -259,26 +259,26 @@ public class USB {
 						.getBusName()) == 0
 						&& filename.compareTo(dev.getFilename() == null ? ""
 								: dev.getFilename()) == 0
-						&& dev.getIdVendor() == idVendor
-						&& dev.getIdProduct() == idProduct) {
+						&& dev.getVendorId() == idVendor
+						&& dev.getProductId() == idProduct) {
 					return dev;
 				}
 			} else if (filename != null) {
 				if (filename.compareTo(dev.getFilename() == null ? "" : dev
 						.getFilename()) == 0
-						&& dev.getIdVendor() == idVendor
-						&& dev.getIdProduct() == idProduct) {
+						&& dev.getVendorId() == idVendor
+						&& dev.getProductId() == idProduct) {
 					return dev;
 				}
 			} else if (busName != null) {
 				if (busName.compareTo(dev.getBusName() == null ? "" : dev
 						.getBusName()) == 0
-						&& dev.getIdVendor() == idVendor
-						&& dev.getIdProduct() == idProduct) {
+						&& dev.getVendorId() == idVendor
+						&& dev.getProductId() == idProduct) {
 					return dev;
 				}
-			} else if (dev.getIdVendor() == idVendor
-					&& dev.getIdProduct() == idProduct) {
+			} else if (dev.getVendorId() == idVendor
+					&& dev.getProductId() == idProduct) {
 				return dev;
 			}
 		}

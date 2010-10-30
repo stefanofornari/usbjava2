@@ -489,11 +489,11 @@ public class DeviceTest extends TestCase {
     }
 
     public void testGetIdProduct() {
-        assertEquals(devinfo.getIdProduct(), dev.getIdProduct());
+        assertEquals(devinfo.getIdProduct(), dev.getProductId());
     }
 
     public void testGetIdVendor() {
-        assertEquals(devinfo.getIdVendor(), dev.getIdVendor());
+        assertEquals(devinfo.getIdVendor(), dev.getVendorId());
     }
 
     public void testGetAltinterface() throws Exception {

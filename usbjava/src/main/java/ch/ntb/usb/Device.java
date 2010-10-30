@@ -24,7 +24,7 @@ public class Device {
     /**
      * Mandatory identification values for the device.
      */
-    private int idVendor, idProduct;
+    private int vendorId, productId;
     /**
      * Optional identification value for the device (e.g. if there are multiple
      * devices with the same vendor and product id).
@@ -45,8 +45,8 @@ public class Device {
         resetOnFirstOpen = false;
         resetDone = false;
         maxPacketSize = -1;
-        this.idVendor = idVendor;
-        this.idProduct = idProduct;
+        this.vendorId = idVendor;
+        this.productId = idProduct;
         this.filename = null;
     }
 
@@ -55,8 +55,8 @@ public class Device {
         resetOnFirstOpen = false;
         resetDone = false;
         maxPacketSize = -1;
-        this.idVendor = idVendor;
-        this.idProduct = idProduct;
+        this.vendorId = idVendor;
+        this.productId = idProduct;
         this.busName = busName;
         this.filename = filename;
     }
@@ -100,8 +100,8 @@ public class Device {
                 if (busName != null && filename != null) {
                     if (busName.compareTo(bus.getDirname()) == 0
                             && filename.compareTo(device.getFilename()) == 0
-                            && devDesc.getVendorId() == idVendor
-                            && devDesc.getProductId() == idProduct) {
+                            && devDesc.getVendorId() == vendorId
+                            && devDesc.getProductId() == productId) {
                         logger.info("Device found. bus: " + bus.getDirname()
                                 + ", filename: " + device.getFilename());
                         updateMaxPacketSize(device);
@@ -109,8 +109,8 @@ public class Device {
                     }
                 } else if (filename != null) {
                     if (filename.compareTo(device.getFilename()) == 0
-                            && devDesc.getVendorId() == idVendor
-                            && devDesc.getProductId() == idProduct) {
+                            && devDesc.getVendorId() == vendorId
+                            && devDesc.getProductId() == productId) {
                         logger.info("Device found. bus: " + bus.getDirname()
                                 + ", filename: " + device.getFilename());
                         updateMaxPacketSize(device);
@@ -118,15 +118,15 @@ public class Device {
                     }
                 } else if (busName != null) {
                     if (busName.compareTo(bus.getDirname()) == 0
-                            && devDesc.getVendorId() == idVendor
-                            && devDesc.getProductId() == idProduct) {
+                            && devDesc.getVendorId() == vendorId
+                            && devDesc.getProductId() == productId) {
                         logger.info("Device found. bus: " + bus.getDirname()
                                 + ", filename: " + device.getFilename());
                         updateMaxPacketSize(device);
                         return device;
                     }
-                } else if (devDesc.getVendorId() == idVendor
-                        && devDesc.getProductId() == idProduct) {
+                } else if (devDesc.getVendorId() == vendorId
+                        && devDesc.getProductId() == productId) {
                     logger.info("Device found. bus: " + bus.getDirname()
                             + ", filename: " + device.getFilename());
                     updateMaxPacketSize(device);
@@ -147,7 +147,7 @@ public class Device {
      * @throws USBException
      */
     public void updateDescriptors() throws USBException {
-        setDev(initDevice(idVendor, idProduct, busName, filename));
+        setDev(initDevice(vendorId, productId, busName, filename));
     }
 
     /**
@@ -190,15 +190,15 @@ public class Device {
     /**
      * @param idVendor the idVendor to set
      */
-    public void setIdVendor(int idVendor) {
-        this.idVendor = idVendor;
+    public void setVendorId(int idVendor) {
+        this.vendorId = idVendor;
     }
 
     /**
      * @param idProduct the idProduct to set
      */
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
+    public void setProductId(int idProduct) {
+        this.productId = idProduct;
     }
 
     /**
@@ -300,7 +300,7 @@ public class Device {
             throw new USBException("device opened, close or reset first");
         }
 
-        setDev(initDevice(idVendor, idProduct, busName, filename));
+        setDev(initDevice(vendorId, productId, busName, filename));
 
         if (dev != null) {
             long res = LibusbJava.usb_open(dev);
@@ -762,8 +762,8 @@ public class Device {
      *
      * @return the product ID of the device.
      */
-    public int getIdProduct() {
-        return idProduct;
+    public int getProductId() {
+        return productId;
     }
 
     /**
@@ -771,8 +771,8 @@ public class Device {
      *
      * @return the vendor ID of the device.
      */
-    public int getIdVendor() {
-        return idVendor;
+    public int getVendorId() {
+        return vendorId;
     }
 
     /**
@@ -888,9 +888,9 @@ public class Device {
 
     @Override
     public String toString() {
-        return "idVendor: 0x" + Integer.toHexString(getIdVendor() & 0xffff)
+        return "idVendor: 0x" + Integer.toHexString(getVendorId() & 0xffff)
                 + ", idProduct: 0x"
-                + Integer.toHexString(getIdProduct() & 0xffff) + ", busName: "
+                + Integer.toHexString(getProductId() & 0xffff) + ", busName: "
                 + getBusName() + ", filename: " + getFilename();
     }
 }
