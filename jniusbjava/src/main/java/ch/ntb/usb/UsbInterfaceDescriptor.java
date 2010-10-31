@@ -33,6 +33,8 @@ public class UsbInterfaceDescriptor extends UsbDescriptor {
     private UsbEndpointDescriptor[] endpoint;
     private byte[] extra; /* Extra descriptors */
 
+    private UsbInterface usbInterface; // the interface this descriptor belongs to
+
     private int extralen;
 
     @Override
@@ -195,5 +197,19 @@ public class UsbInterfaceDescriptor extends UsbDescriptor {
      */
     public void setExtralen(int extralen) {
         this.extralen = extralen;
+    }
+
+    /**
+     * @return the usbInterface
+     */
+    public UsbInterface getUsbInterface() {
+        return usbInterface;
+    }
+
+    /**
+     * @param usbInterface the usbInterface to set
+     */
+    public void setUsbInterface(UsbInterface usbInterface) {
+        this.usbInterface = usbInterface;
     }
 }

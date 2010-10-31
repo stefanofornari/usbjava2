@@ -14,6 +14,7 @@ import junit.framework.TestCase;
 public class UsbInterfaceDescriptorTest extends TestCase {
 
     private UsbInterfaceDescriptor DESCRIPTOR = null;
+    private UsbInterface           INTERFACE  = null;
     
     public UsbInterfaceDescriptorTest(String testName) {
         super(testName);
@@ -23,6 +24,8 @@ public class UsbInterfaceDescriptorTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
+        INTERFACE = new UsbInterface();
+        
         DESCRIPTOR = new UsbInterfaceDescriptor();
 
         UsbEndpointDescriptor[] endpoints = {
@@ -32,6 +35,7 @@ public class UsbInterfaceDescriptorTest extends TestCase {
         };
 
         DESCRIPTOR.setEndpoints(endpoints);
+        DESCRIPTOR.setUsbInterface(INTERFACE);
     }
 
     @Override
@@ -48,6 +52,10 @@ public class UsbInterfaceDescriptorTest extends TestCase {
 
     public void testGetNumAlternateSetting() {
         assertEquals(3, DESCRIPTOR.getNumEndpoints());
+    }
+
+    public void testGetInterfaceFromDescriptor() {
+        assertSame(INTERFACE, DESCRIPTOR.getUsbInterface());
     }
 
 }
