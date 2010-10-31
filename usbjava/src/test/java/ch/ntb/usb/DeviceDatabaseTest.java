@@ -102,7 +102,7 @@ public class DeviceDatabaseTest extends TestCase {
 
         String model = d.getModelDisplayName("04a9", "0000");
 
-        assertEquals("Canon (Unknown)", model);
+        assertEquals("Canon (Unknown - 0x0000)", model);
     }
 
     public void testGetDisplayNameWithNoVendor() {

@@ -7,7 +7,6 @@
  */
 package ch.ntb.usb;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,7 +83,7 @@ public class DeviceDatabase {
 
             return (model != null) ?
                    (m.getSimpleVendorName() + ' ' + m.getModel(modelId)) :
-                   (m.getSimpleVendorName() + " (Unknown)");
+                   (m.getSimpleVendorName() + " (Unknown - 0x" + modelId + ")");
         }
 
         return null;
