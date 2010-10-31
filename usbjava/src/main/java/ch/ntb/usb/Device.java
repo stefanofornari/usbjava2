@@ -14,7 +14,7 @@ import ch.ntb.usb.logger.LogUtil;
 
 /**
  * This class represents an USB device.<br>
- * To get an instance of an USB device use <code>USB.getDevice(...)</code>.
+ * To get an instance of an USB device use <code>USB.getUsbDevice(...)</code>.
  * 
  */
 public class Device {
@@ -147,7 +147,7 @@ public class Device {
      * @throws USBException
      */
     public void updateDescriptors() throws USBException {
-        setDev(initDevice(vendorId, productId, busName, filename));
+        setUsbDevice(initDevice(vendorId, productId, busName, filename));
     }
 
     /**
@@ -216,27 +216,6 @@ public class Device {
     }
 
     /**
-     * @param dev_configuration the dev_configuration to set
-     */
-    public void setDev_configuration(int dev_configuration) {
-        this.dev_configuration = dev_configuration;
-    }
-
-    /**
-     * @param dev_interface the dev_interface to set
-     */
-    public void setDev_interface(int dev_interface) {
-        this.dev_interface = dev_interface;
-    }
-
-    /**
-     * @param dev_altinterface the dev_altinterface to set
-     */
-    public void setDev_altinterface(int dev_altinterface) {
-        this.dev_altinterface = dev_altinterface;
-    }
-
-    /**
      * @param usbDevHandle the usbDevHandle to set
      */
     public void setUsbDevHandle(long usbDevHandle) {
@@ -267,7 +246,7 @@ public class Device {
     /**
      * @param dev the dev to set
      */
-    public void setDev(UsbDevice dev) {
+    public void setUsbDevice(UsbDevice dev) {
         this.dev = dev;
     }
 
@@ -292,15 +271,15 @@ public class Device {
      */
     public void open(int configuration, int interface_, int altinterface)
             throws USBException {
-        this.setDev_configuration(configuration);
-        this.setDev_interface(interface_);
-        this.setDev_altinterface(altinterface);
+        this.setConfiguration(configuration);
+        this.setInterface(interface_);
+        this.setAltinterface(altinterface);
 
         if (usbDevHandle != 0) {
             throw new USBException("device opened, close or reset first");
         }
 
-        setDev(initDevice(vendorId, productId, busName, filename));
+        setUsbDevice(initDevice(vendorId, productId, busName, filename));
 
         if (dev != null) {
             long res = LibusbJava.usb_open(dev);
@@ -355,7 +334,7 @@ public class Device {
      * called.<br>
      * Note that the device is re-attached to the USB which may cause the bus
      * and filename to be changed. If the bus and filename parameters are used
-     * in {@link USB#getDevice(short, short, String, String)} unregister the
+     * in {@link USB#getUsbDevice(short, short, String, String)} unregister the
      * device using {@link USB#unregisterDevice(Device)}, re-enumerate the bus
      * and create a new device instance. If that is not done the device may not
      * be found.
@@ -868,12 +847,55 @@ public class Device {
         );
     }
 
+    /**
+     * Returns the UsbDevice instance associated with this device. This value
+     * is only valid after opening the device.
+     *
+     * @return the UsbDevice instance associated with this device.
+     */
+    public UsbDevice getUsbDevice() {
+        return dev;
+    }
+
+    /**
+     * Searches amongst the device interfaces a PTP interface. If found, the
+     * interface is returned.
+     *
+     * @return The interface that supports PTP if found, false otherwise
+     */
+    public UsbInterfaceDescriptor getPTPInterface() {
+        UsbConfigDescriptor[] descriptors = dev.getConfig();
+
+        if (descriptors == null) {
+            return null;
+        }
+
+        UsbInterfaceDescriptor i = null;
+        for (UsbConfigDescriptor descriptor: descriptors) {
+            i = descriptor.getInterfaceByClass(UsbInterface.CLASS_IMAGE);
+            if (i != null) {
+                break;
+            }
+        }
+
+        return i;
+    }
+
+    @Override
+    public String toString() {
+        return "idVendor: 0x" + Integer.toHexString(getVendorId() & 0xffff)
+                + ", idProduct: 0x"
+                + Integer.toHexString(getProductId() & 0xffff) + ", busName: "
+                + getBusName() + ", filename: " + getFilename();
+    }
+
+
     // ------------------------------------------------------- Protected methods
 
     /**
      * Returns the optional filename which is set when there are multiple
      * devices with the same vendor and product id. See
-     * {@link USB#getDevice(short, short, String, String)}. Use
+     * {@link USB#getUsbDevice(short, short, String, String)}. Use
      * {@link UsbDevice#getFilename()} to read the filename of a device.
      *
      * @return the filename or null
@@ -885,7 +907,7 @@ public class Device {
     /**
      * Returns the optional bus name which is set when there are multiple
      * devices with the same vendor and product id. See
-     * {@link USB#getDevice(short, short, String, String)}. Use
+     * {@link USB#getUsbDevice(short, short, String, String)}. Use
      * {@link UsbBus#getDirname()} to read the name of a bus.
      *
      * @return the bus name or null
@@ -894,21 +916,26 @@ public class Device {
         return busName;
     }
 
+    // --------------------------------------------------------- Private methods
+
     /**
-     * Returns the UsbDevice instance associated with this device. This value
-     * is only valid after opening the device.
-     *
-     * @return the UsbDevice instance associated with this device.
+     * @param dev_configuration the dev_configuration to set
      */
-    public UsbDevice getDevice() {
-        return dev;
+    private void setConfiguration(int dev_configuration) {
+        this.dev_configuration = dev_configuration;
     }
 
-    @Override
-    public String toString() {
-        return "idVendor: 0x" + Integer.toHexString(getVendorId() & 0xffff)
-                + ", idProduct: 0x"
-                + Integer.toHexString(getProductId() & 0xffff) + ", busName: "
-                + getBusName() + ", filename: " + getFilename();
+    /**
+     * @param dev_interface the dev_interface to set
+     */
+    private void setInterface(int dev_interface) {
+        this.dev_interface = dev_interface;
+    }
+
+    /**
+     * @param dev_altinterface the dev_altinterface to set
+     */
+    private void setAltinterface(int dev_altinterface) {
+        this.dev_altinterface = dev_altinterface;
     }
 }
