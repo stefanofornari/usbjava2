@@ -145,6 +145,15 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
         return wMaxPacketSize;
     }
 
+    /**
+     * This is used by gphoto2... but I do not know what it is used for yet...
+     *
+     * @return and empty byte[] for now.
+     */
+    public byte[] recvInterrupt() {
+        return new byte[0];
+    }
+
     @Override
     public String toString() {
         return "Usb_Endpoint_Descriptor bEndpointAddress: 0x"
@@ -210,7 +219,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
     /**
      * Is the endpoint a control endpoint?
      *
-     * @return true is the endpoint is a control endpoint, false otherwise
+     * @return true if the endpoint is a control endpoint, false otherwise
      */
     public boolean isTypeControl() {
         return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_CONTROL;
@@ -219,7 +228,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
     /**
      * Is the endpoint a isochronous endpoint?
      *
-     * @return true is the endpoint is a isochronous endpoint, false otherwise
+     * @return true if the endpoint is a isochronous endpoint, false otherwise
      */
     public boolean isTypeIsochronous() {
         return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_ISOCHRONOUS;
@@ -228,7 +237,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
     /**
      * Is the endpoint a bulk endpoint?
      *
-     * @return true is the endpoint is a bulk endpoint, false otherwise
+     * @return true if the endpoint is a bulk endpoint, false otherwise
      */
     public boolean isTypeBulk() {
         return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_BULK;
@@ -237,7 +246,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
     /**
      * Is the endpoint an interrupt endpoint?
      *
-     * @return true is the endpoint is an interrupt endpoint, false otherwise
+     * @return true if the endpoint is an interrupt endpoint, false otherwise
      */
     public boolean isTypeInterrupt() {
         return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_INTERRUPT;
