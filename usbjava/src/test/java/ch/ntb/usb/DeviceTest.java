@@ -141,9 +141,9 @@ public class DeviceTest extends TestCase {
     public void testOpen() throws Exception {
         // get device by busname
         doOpen();
-        assertNotNull(dev.getDevice());
-        String oldFilename = dev.getDevice().getFilename();
-        String oldBusName = dev.getDevice().getBus().getDirname();
+        assertNotNull(dev.getUsbDevice());
+        String oldFilename = dev.getUsbDevice().getFilename();
+        String oldBusName = dev.getUsbDevice().getBus().getDirname();
         assertNotNull(oldFilename);
         assertNotNull(oldBusName);
         log.info("filename: " + oldFilename + ", busName: " + oldBusName);
@@ -155,9 +155,9 @@ public class DeviceTest extends TestCase {
     public void testOpenWithBusName() throws Exception {
         // get device by busname
         doOpen();
-        assertNotNull(dev.getDevice());
-        String oldFilename = dev.getDevice().getFilename();
-        String oldBusName = dev.getDevice().getBus().getDirname();
+        assertNotNull(dev.getUsbDevice());
+        String oldFilename = dev.getUsbDevice().getFilename();
+        String oldBusName = dev.getUsbDevice().getBus().getDirname();
         assertNotNull(oldFilename);
         assertNotNull(oldBusName);
         log.info("filename: " + oldFilename + ", busName: " + oldBusName);
@@ -169,9 +169,9 @@ public class DeviceTest extends TestCase {
     public void testOpenWithFilename() throws Exception {
         // get device by busname
         doOpen();
-        assertNotNull(dev.getDevice());
-        String oldFilename = dev.getDevice().getFilename();
-        String oldBusName = dev.getDevice().getBus().getDirname();
+        assertNotNull(dev.getUsbDevice());
+        String oldFilename = dev.getUsbDevice().getFilename();
+        String oldBusName = dev.getUsbDevice().getBus().getDirname();
         assertNotNull(oldFilename);
         assertNotNull(oldBusName);
         log.info("filename: " + oldFilename + ", busName: " + oldBusName);
@@ -183,9 +183,9 @@ public class DeviceTest extends TestCase {
     public void testOpenWithBusAndFilename() throws Exception {
         // get device by busname and filename
         doOpen();
-        assertNotNull(dev.getDevice());
-        String oldFilename = dev.getDevice().getFilename();
-        String oldBusName = dev.getDevice().getBus().getDirname();
+        assertNotNull(dev.getUsbDevice());
+        String oldFilename = dev.getUsbDevice().getFilename();
+        String oldBusName = dev.getUsbDevice().getBus().getDirname();
         assertNotNull(oldFilename);
         assertNotNull(oldBusName);
         log.info("filename: " + oldFilename + ", busName: " + oldBusName);
@@ -525,6 +525,13 @@ public class DeviceTest extends TestCase {
     
     public void testDisplayName() {
        assertEquals("Canon EOS 1000D", dev.getDisplayName()); 
+    }
+
+    //
+    // Very basic testing for legacy reasons
+    //
+    public void testGetPTPInterface() {
+        assertNotNull(dev.getPTPInterface());
     }
 
     // -------------------------------------------------------------------------
