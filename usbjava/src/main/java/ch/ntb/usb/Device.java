@@ -19,6 +19,8 @@ import ch.ntb.usb.logger.LogUtil;
  */
 public class Device {
 
+    public static final int DEFAULT_TIMEOUT = 2000;
+
     private static final Logger logger = LogUtil.getLogger("ch.ntb.usb");
     private int maxPacketSize;
     /**
@@ -38,7 +40,7 @@ public class Device {
     private int dev_configuration, dev_interface, dev_altinterface;
     private long usbDevHandle;
     private boolean resetOnFirstOpen, resetDone;
-    private int resetTimeout = 2000;
+    private int resetTimeout = DEFAULT_TIMEOUT;
     private UsbDevice dev;
 
     protected Device(short idVendor, short idProduct) {
