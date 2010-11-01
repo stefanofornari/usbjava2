@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.logging.Logger;
 
 import ch.ntb.usb.logger.LogUtil;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * This class manages all USB devices and defines some USB specific constants.<br>
@@ -180,7 +182,7 @@ public class USB {
      * @param filename
      *            optional filename which can be used to distinguish multiple
      *            devices with the same vendor and product id.<br>
-     *            see {@link Usb_Device#getFilename()}
+     *            see {@link UsbDevice#getFilename()}
      * @return a newly created device or an already registered device
      */
     public static Device getDevice(short idVendor, short idProduct,
@@ -237,7 +239,7 @@ public class USB {
      * @param filename
      *            an optional filename which can be used to distinguish multiple
      *            devices with the same vendor and product id. see
-     *            {@link Usb_Device#getFilename()}
+     *            {@link UsbDevice#getFilename()}
      *
      * @return the device or null
      */
@@ -312,6 +314,40 @@ public class USB {
     public static void init() {
         LibusbJava.usb_init();
         initUSBDone = true;
+    }
+
+    /**
+     * Creates and returns an output stream for the given device and on a given
+     * endpoint.
+     * 
+     * @param dev the device to stream to
+     * @param ep the endpoint to use is must be bulk and not input
+     * 
+     * @return the output stream
+     *
+     * @throws IllegalArgumentException if the endpoint is not of appropriate type
+     */
+    public static OutputStream getOutputStream(Device dev, UsbEndpointDescriptor ep) {
+        if (!ep.isTypeBulk() || ep.isInput())
+	    throw new IllegalArgumentException ();
+	return new BulkOutputStream (dev, ep.getEndpointAddress());
+    }
+
+    /**
+     * Creates and returns an input stream for the given device and on a given
+     * endpoint.
+     *
+     * @param dev the device to stream to
+     * @param ep the endpoint to use is must be bulk and input
+     *
+     * @return the output stream
+     *
+     * @throws IllegalArgumentException if the endpoint is not of appropriate type
+     */
+    public static InputStream getInputStream(Device dev, UsbEndpointDescriptor ep) {
+        if (!ep.isTypeBulk() || !ep.isInput())
+	    throw new IllegalArgumentException ();
+	return new BulkInputStream (dev, ep.getEndpointAddress());
     }
 
     // ----------------------------------------------------- Private methods
