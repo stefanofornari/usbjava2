@@ -15,6 +15,10 @@ public class USBException extends IOException {
         super(string);
     }
 
+    public USBException(String string, Throwable t) {
+        super(string, t);
+    }
+
     /**
      * Returns true iff the exception indicates a (bulk) endpoint has
      * stalled; these are used as error indicators in device protocols.
