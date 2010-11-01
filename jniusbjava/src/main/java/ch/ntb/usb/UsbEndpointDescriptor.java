@@ -31,7 +31,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * Endpoint address mask (in bEndpointAddress).
      */
     public static final int USB_ENDPOINT_ADDRESS_MASK = 0x0f,
-            USB_ENDPOINT_DIR_MASK = 0x80;
+                            USB_ENDPOINT_DIR_MASK     = 0x80;
     /**
      * Endpoint type mask (in bmAttributes).
      */
