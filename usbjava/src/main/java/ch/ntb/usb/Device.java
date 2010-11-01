@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import ch.ntb.usb.logger.LogUtil;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * This class represents an USB device.<br>
@@ -881,6 +883,36 @@ public class Device {
         }
 
         return i;
+    }
+
+    /**
+     * Creates and returns an output stream for device and on a given endpoint.
+     *
+     * @param ep the endpoint to use is must be bulk and not input
+     *
+     * @return the output stream
+     *
+     * @throws IllegalArgumentException if the endpoint is not of appropriate type
+     */
+    public OutputStream getOutputStream(UsbEndpointDescriptor ep) {
+        if (!ep.isTypeBulk() || ep.isInput())
+	    throw new IllegalArgumentException ();
+	return new BulkOutputStream (this, ep.getEndpointAddress());
+    }
+
+    /**
+     * Creates and returns an input stream on a given endpoint.
+     *
+     * @param ep the endpoint to use is must be bulk and input
+     *
+     * @return the output stream
+     *
+     * @throws IllegalArgumentException if the endpoint is not of appropriate type
+     */
+    public InputStream getInputStream(UsbEndpointDescriptor ep) {
+        if (!ep.isTypeBulk() || !ep.isInput())
+	    throw new IllegalArgumentException ();
+	return new BulkInputStream (this, ep.getEndpointAddress());
     }
 
     @Override

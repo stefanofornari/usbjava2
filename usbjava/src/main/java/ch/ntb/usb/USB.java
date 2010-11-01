@@ -316,40 +316,6 @@ public class USB {
         initUSBDone = true;
     }
 
-    /**
-     * Creates and returns an output stream for the given device and on a given
-     * endpoint.
-     * 
-     * @param dev the device to stream to
-     * @param ep the endpoint to use is must be bulk and not input
-     * 
-     * @return the output stream
-     *
-     * @throws IllegalArgumentException if the endpoint is not of appropriate type
-     */
-    public static OutputStream getOutputStream(Device dev, UsbEndpointDescriptor ep) {
-        if (!ep.isTypeBulk() || ep.isInput())
-	    throw new IllegalArgumentException ();
-	return new BulkOutputStream (dev, ep.getEndpointAddress());
-    }
-
-    /**
-     * Creates and returns an input stream for the given device and on a given
-     * endpoint.
-     *
-     * @param dev the device to stream to
-     * @param ep the endpoint to use is must be bulk and input
-     *
-     * @return the output stream
-     *
-     * @throws IllegalArgumentException if the endpoint is not of appropriate type
-     */
-    public static InputStream getInputStream(Device dev, UsbEndpointDescriptor ep) {
-        if (!ep.isTypeBulk() || !ep.isInput())
-	    throw new IllegalArgumentException ();
-	return new BulkInputStream (dev, ep.getEndpointAddress());
-    }
-
     // ----------------------------------------------------- Private methods
     private static void processBus(UsbBus bus) {
         doubleLinkInterfacesAndDescriptors(bus);
