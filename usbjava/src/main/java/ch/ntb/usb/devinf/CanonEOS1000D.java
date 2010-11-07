@@ -25,6 +25,9 @@ import ch.ntb.usb.USB;
 
 public class CanonEOS1000D extends AbstractDeviceInfo {
 
+    public static final short VENDOR  = 0x04a9;
+    public static final short PRODUCT = 0x317b;
+
     private boolean connected;
 
     @Override

@@ -868,6 +868,10 @@ public class Device {
      * @return The interface that supports PTP if found, false otherwise
      */
     public UsbInterfaceDescriptor getPTPInterface() {
+        if (usbDevHandle == 0) {
+            throw new IllegalStateException("The device has not been initialized");
+        }
+
         UsbConfigDescriptor[] descriptors = dev.getConfig();
 
         if (descriptors == null) {
