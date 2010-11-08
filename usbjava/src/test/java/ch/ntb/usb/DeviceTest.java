@@ -527,24 +527,8 @@ public class DeviceTest extends TestCase {
        assertEquals("Canon EOS 1000D", dev.getDisplayName()); 
     }
 
-    //
-    // Very basic testing for legacy reasons
-    //
-    public void testGetPTPInterfaceDeviceNotOpened() {
-        try {
-            dev.getPTPInterface();
-            fail("If the device is not open IllegalStateException should be raised");
-        } catch (IllegalStateException e) {
-            //
-            // This is ok
-            //
-        }
-    }
-
     public void testGetPTPInterfaceDeviceOpened() throws USBException {
-        doOpen();
         assertNotNull(dev.getPTPInterface());
-        doClose();
     }
 
     // -------------------------------------------------------------------------

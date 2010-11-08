@@ -865,14 +865,23 @@ public class Device {
      * Searches amongst the device interfaces a PTP interface. If found, the
      * interface is returned.
      *
-     * @return The interface that supports PTP if found, false otherwise
+     * NOTE: I am not sure this method makes too much sense. Adding this for now
+     * to accommodate jphoto2 requirements.
+     *
+     * @return The interface that supports PTP if found, null otherwise
+     *
+     * @throws USBException in case of errors
      */
-    public UsbInterfaceDescriptor getPTPInterface() {
-        if (usbDevHandle == 0) {
-            throw new IllegalStateException("The device has not been initialized");
+    public UsbInterfaceDescriptor getPTPInterface() throws USBException {
+        UsbDevice device = initDevice(vendorId, productId, null, null);
+
+        if (device == null) {
+            throw new USBException(
+                String.format("Camera not found (0x%1$04x,0x%2$04x)", vendorId, productId)
+            );
         }
 
-        UsbConfigDescriptor[] descriptors = dev.getConfig();
+        UsbConfigDescriptor[] descriptors = device.getConfig();
 
         if (descriptors == null) {
             return null;
