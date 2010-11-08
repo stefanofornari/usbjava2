@@ -28,17 +28,23 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
     public static final int USB_MAXENDPOINTS = 32;
     
     /**
-     * Endpoint address mask (in bEndpointAddress).
+     * Endpoint address mask (in address).
      */
     public static final int USB_ENDPOINT_ADDRESS_MASK = 0x0f,
                             USB_ENDPOINT_DIR_MASK     = 0x80;
     /**
-     * Endpoint type mask (in bmAttributes).
+     * Endpoint type mask (in attributes).
      */
     public static final int USB_ENDPOINT_TYPE_MASK = 0x03;
-    
+
     /**
-     * Possible endpoint types (in bmAttributes).
+     * Endpoint directions
+     */
+    public static final int USB_ENDPOINT_INPUT  = 0x80;
+    public static final int USB_ENDPOINT_OUTPUT = 0x00;
+
+    /**
+     * Possible endpoint types (in attributes).
      */
     public static final int 
         USB_ENDPOINT_TYPE_CONTROL     = 0,
@@ -46,13 +52,13 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
         USB_ENDPOINT_TYPE_BULK        = 2,
         USB_ENDPOINT_TYPE_INTERRUPT   = 3;
         
-    private byte bEndpointAddress;
-    private byte bmAttributes;
-    private short wMaxPacketSize;
-    private byte bInterval;
-    private byte bRefresh;
-    private byte bSynchAddress;
-    private byte[] extra; /* Extra descriptors */
+    private byte   address      ;
+    private byte   attributes   ;
+    private short  maxPacketSize;
+    private byte   interval     ;
+    private byte   refresh      ;
+    private byte   synchAddress ;
+    private byte[] extra        ; /* Extra descriptors */
 
     private int extralen;
 
@@ -68,7 +74,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * @return the endpoint address
      */
     public byte getEndpointAddress() {
-        return bEndpointAddress;
+        return address;
     }
 
     /**
@@ -80,7 +86,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * @return the intervall for polling endpoint data transfers
      */
     public byte getInterval() {
-        return bInterval;
+        return interval;
     }
 
     /**
@@ -94,27 +100,27 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * 		Bits 3..2: Synchronisation type
      *  		00 = No synchronisation
      * 			01 = Asynchronous
-     *          10 = Adaptive
-     *          11 = Synchronous
+     *                  10 = Adaptive
+     *                  11 = Synchronous
      *     	Bits 5..4: Usage Type
-     *      	00 = Data endpoint
-     *      	01 = Feedback endpoint
-     *      	10 = Explicit feedback data endpoint
-     *      	11 = Reserved
+     *      	        00 = Data endpoint
+     *      	        01 = Feedback endpoint
+     *      	        10 = Explicit feedback data endpoint
+     *      	        11 = Reserved
      * </pre>
      *
      * @return the attributes of this endpoint
      */
     public byte getAttributes() {
-        return bmAttributes;
+        return attributes;
     }
 
     public byte getRefresh() {
-        return bRefresh;
+        return refresh;
     }
 
     public byte getSynchAddress() {
-        return bSynchAddress;
+        return synchAddress;
     }
 
     /**
@@ -142,7 +148,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * @return the maximum packet size
      */
     public short getMaxPacketSize() {
-        return wMaxPacketSize;
+        return maxPacketSize;
     }
 
     /**
@@ -157,49 +163,49 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
     @Override
     public String toString() {
         return "Usb_Endpoint_Descriptor bEndpointAddress: 0x"
-                + Integer.toHexString(bEndpointAddress & 0xFF);
+                + Integer.toHexString(address & 0xFF);
     }
 
     /**
      * @param bEndpointAddress the bEndpointAddress to set
      */
     public void setEndpointAddress(byte bEndpointAddress) {
-        this.bEndpointAddress = bEndpointAddress;
+        this.address = bEndpointAddress;
     }
 
     /**
      * @param bmAttributes the bmAttributes to set
      */
     public void setAttributes(byte bmAttributes) {
-        this.bmAttributes = bmAttributes;
+        this.attributes = bmAttributes;
     }
 
     /**
      * @param wMaxPacketSize the wMaxPacketSize to set
      */
     public void setMaxPacketSize(short wMaxPacketSize) {
-        this.wMaxPacketSize = wMaxPacketSize;
+        this.maxPacketSize = wMaxPacketSize;
     }
 
     /**
      * @param bInterval the bInterval to set
      */
     public void setInterval(byte bInterval) {
-        this.bInterval = bInterval;
+        this.interval = bInterval;
     }
 
     /**
      * @param bRefresh the bRefresh to set
      */
     public void setRefresh(byte bRefresh) {
-        this.bRefresh = bRefresh;
+        this.refresh = bRefresh;
     }
 
     /**
      * @param bSynchAddress the bSynchAddress to set
      */
     public void setSynchAddress(byte bSynchAddress) {
-        this.bSynchAddress = bSynchAddress;
+        this.synchAddress = bSynchAddress;
     }
 
     /**
@@ -222,7 +228,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * @return true if the endpoint is a control endpoint, false otherwise
      */
     public boolean isTypeControl() {
-        return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_CONTROL;
+        return (attributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_CONTROL;
     }
 
     /**
@@ -231,7 +237,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * @return true if the endpoint is a isochronous endpoint, false otherwise
      */
     public boolean isTypeIsochronous() {
-        return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_ISOCHRONOUS;
+        return (attributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_ISOCHRONOUS;
     }
 
     /**
@@ -240,7 +246,7 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * @return true if the endpoint is a bulk endpoint, false otherwise
      */
     public boolean isTypeBulk() {
-        return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_BULK;
+        return (attributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_BULK;
     }
 
     /**
@@ -249,15 +255,28 @@ public class UsbEndpointDescriptor extends UsbDescriptor {
      * @return true if the endpoint is an interrupt endpoint, false otherwise
      */
     public boolean isTypeInterrupt() {
-        return (bmAttributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_INTERRUPT;
+        return (attributes & USB_ENDPOINT_TYPE_MASK) == USB_ENDPOINT_TYPE_INTERRUPT;
     }
 
-    /*
-     * I do not know how to retrieve a real value... for now it is always true
+    /**
+     * Returns true if this is an input endpoint (data flows to host),
+     * false if it is instead an output endpoint (data flows to device).
      *
-     * @return true
+     * @return true if this is an input endpoint, false otherwise
      */
     public boolean isInput() {
-        return true;
+        return (address & USB_ENDPOINT_DIR_MASK) != 0;
     }
+    
+     /**
+     * Returns true if this is an output endpoint (data flows to host),
+     * false if it is instead an input endpoint (data flows to device).
+     *
+     * @return true if this is an input endpoint, false otherwise
+     */
+    public boolean isOutput() {
+        return (address & USB_ENDPOINT_DIR_MASK) == 0;
+    }
+
+
 }

@@ -44,11 +44,13 @@ public class UsbEndpointDescriptorTest extends TestCase {
     }
 
     public void testIsInput() {
-        //
-        // I do not know how to retrieve a real value... for now it is always
-        // true
-        //
+        ENDPOINT.setEndpointAddress((byte)ENDPOINT.USB_ENDPOINT_INPUT);
         assertTrue(ENDPOINT.isInput());
+    }
+
+    public void testIsOutput() {
+        ENDPOINT.setEndpointAddress((byte)ENDPOINT.USB_ENDPOINT_OUTPUT);
+        assertTrue(ENDPOINT.isOutput());
     }
 
 }
