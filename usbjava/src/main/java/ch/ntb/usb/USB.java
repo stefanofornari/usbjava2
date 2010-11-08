@@ -299,7 +299,7 @@ public class USB {
         // At this point the UsbBus data structure is the one created
         // by the native code. I do not want to add any additional logic
         // to the native layer, therefore, bus is then processed below.
-        // Client of this library should use USB instead of LibusbJava.
+        // Clients of this library should use USB instead of LibusbJava.
         //
         processBus(bus);
 
@@ -341,7 +341,7 @@ public class USB {
                     for (UsbInterface i: interfaces) {
                         UsbInterfaceDescriptor[] intDescs = i.getAlternateSetting();
 
-                        if (intDescs != null) {
+                        if (intDescs == null) {
                             continue;
                         }
                         for (UsbInterfaceDescriptor j: intDescs) {
