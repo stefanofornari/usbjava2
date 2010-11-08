@@ -873,15 +873,15 @@ public class Device {
      * @throws USBException in case of errors
      */
     public UsbInterfaceDescriptor getPTPInterface() throws USBException {
-        UsbDevice device = initDevice(vendorId, productId, null, null);
+        updateDescriptors();
 
-        if (device == null) {
+        if (dev == null) {
             throw new USBException(
                 String.format("Camera not found (0x%1$04x,0x%2$04x)", vendorId, productId)
             );
         }
 
-        UsbConfigDescriptor[] descriptors = device.getConfig();
+        UsbConfigDescriptor[] descriptors = dev.getConfig();
 
         if (descriptors == null) {
             return null;
