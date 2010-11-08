@@ -70,9 +70,9 @@ jfieldID usb_intDescFID_bLength, usb_intDescFID_bDescriptorType,  \
          usb_intDescFID_extralen;
 // usb_endpointDescriptor
 jfieldID usb_epDescFID_bLength, usb_epDescFID_bDescriptorType,  \
-		 usb_epDescFID_bEndpointAddress, usb_epDescFID_bmAttributes,  \
-		 usb_epDescFID_wMaxPacketSize, usb_epDescFID_bInterval,  \
-		 usb_epDescFID_bRefresh, usb_epDescFID_bSynchAddress, usb_epDescFID_extra,  \
+		 usb_epDescFID_address, usb_epDescFID_attributes,  \
+		 usb_epDescFID_maxPacketSize, usb_epDescFID_interval,  \
+		 usb_epDescFID_refresh, usb_epDescFID_synchAddress, usb_epDescFID_extra,  \
 		 usb_epDescFID_extralen;
 
 /*
@@ -273,12 +273,12 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
 
         usb_epDescFID_bLength = env->GetFieldID(usb_epDescClazz, "bLength", "B");
         usb_epDescFID_bDescriptorType = env->GetFieldID(usb_epDescClazz, "bDescriptorType", "B");
-        usb_epDescFID_bEndpointAddress = env->GetFieldID(usb_epDescClazz, "bEndpointAddress", "B");
-        usb_epDescFID_bmAttributes = env->GetFieldID(usb_epDescClazz, "bmAttributes", "B");
-        usb_epDescFID_wMaxPacketSize = env->GetFieldID(usb_epDescClazz, "wMaxPacketSize", "S");
-        usb_epDescFID_bInterval = env->GetFieldID(usb_epDescClazz, "bInterval", "B");
-        usb_epDescFID_bRefresh = env->GetFieldID(usb_epDescClazz, "bRefresh", "B");
-        usb_epDescFID_bSynchAddress = env->GetFieldID(usb_epDescClazz, "bSynchAddress", "B");
+        usb_epDescFID_address = env->GetFieldID(usb_epDescClazz, "address", "B");
+        usb_epDescFID_attributes = env->GetFieldID(usb_epDescClazz, "attributes", "B");
+        usb_epDescFID_maxPacketSize = env->GetFieldID(usb_epDescClazz, "maxPacketSize", "S");
+        usb_epDescFID_interval = env->GetFieldID(usb_epDescClazz, "interval", "B");
+        usb_epDescFID_refresh = env->GetFieldID(usb_epDescClazz, "refresh", "B");
+        usb_epDescFID_synchAddress = env->GetFieldID(usb_epDescClazz, "synchAddress", "B");
         usb_epDescFID_extra = env->GetFieldID(usb_epDescClazz, "extra", "[B");
         usb_epDescFID_extralen = env->GetFieldID(usb_epDescClazz, "extralen", "I");
 #ifdef DEBUGON
@@ -523,12 +523,12 @@ JNIEXPORT jobject JNICALL Java_ch_ntb_usb_LibusbJava_usb_1get_1busses
                             env->SetObjectArrayElement(usb_epDescObjArray, e, usb_epDescObj);
                             env->SetByteField(usb_epDescObj, usb_epDescFID_bLength, dev->config[c].interface[i].altsetting[a].endpoint[e].bLength);
                             env->SetByteField(usb_epDescObj, usb_epDescFID_bDescriptorType, dev->config[c].interface[i].altsetting[a].endpoint[e].bDescriptorType);
-                            env->SetByteField(usb_epDescObj, usb_epDescFID_bEndpointAddress, dev->config[c].interface[i].altsetting[a].endpoint[e].bEndpointAddress);
-                            env->SetByteField(usb_epDescObj, usb_epDescFID_bmAttributes, dev->config[c].interface[i].altsetting[a].endpoint[e].bmAttributes);
-                            env->SetShortField(usb_epDescObj, usb_epDescFID_wMaxPacketSize, dev->config[c].interface[i].altsetting[a].endpoint[e].wMaxPacketSize);
-                            env->SetByteField(usb_epDescObj, usb_epDescFID_bInterval, dev->config[c].interface[i].altsetting[a].endpoint[e].bInterval);
-                            env->SetByteField(usb_epDescObj, usb_epDescFID_bRefresh, dev->config[c].interface[i].altsetting[a].endpoint[e].bRefresh);
-                            env->SetByteField(usb_epDescObj, usb_epDescFID_bSynchAddress, dev->config[c].interface[i].altsetting[a].endpoint[e].bSynchAddress);
+                            env->SetByteField(usb_epDescObj, usb_epDescFID_address, dev->config[c].interface[i].altsetting[a].endpoint[e].bEndpointAddress);
+                            env->SetByteField(usb_epDescObj, usb_epDescFID_attributes, dev->config[c].interface[i].altsetting[a].endpoint[e].bmAttributes);
+                            env->SetShortField(usb_epDescObj, usb_epDescFID_maxPacketSize, dev->config[c].interface[i].altsetting[a].endpoint[e].wMaxPacketSize);
+                            env->SetByteField(usb_epDescObj, usb_epDescFID_interval, dev->config[c].interface[i].altsetting[a].endpoint[e].bInterval);
+                            env->SetByteField(usb_epDescObj, usb_epDescFID_refresh, dev->config[c].interface[i].altsetting[a].endpoint[e].bRefresh);
+                            env->SetByteField(usb_epDescObj, usb_epDescFID_synchAddress, dev->config[c].interface[i].altsetting[a].endpoint[e].bSynchAddress);
                             env->SetIntField(usb_epDescObj, usb_epDescFID_extralen, dev->config[c].interface[i].altsetting[a].endpoint[e].extralen);
                             if (dev->config[c].interface[i].altsetting[a].endpoint[e].extra) {
                                 jbyteArray jbExtraDesc = env->NewByteArray(dev->config[c].interface[i].altsetting[a].endpoint[e].extralen);
