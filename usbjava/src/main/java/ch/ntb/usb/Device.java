@@ -1,8 +1,9 @@
 /* 
  * Java libusb wrapper
  * Copyright (c) 2005-2006 Andreas Schl�pfer <spandi at users.sourceforge.net>
+ * Copyright (c) 2010 Stefano Fornari
  *
- * http://libusbjava.sourceforge.net
+ * http://code.google.com/p/usbjava/
  * This library is covered by the LGPL, read LGPL.txt for details.
  */
 package ch.ntb.usb;
@@ -695,8 +696,12 @@ public class Device {
      */
     private void claim_interface(long usb_dev_handle, int configuration,
             int interface_, int altinterface) throws USBException {
-        if (LibusbJava.usb_set_configuration(usb_dev_handle, configuration) < 0) {
+        int ret = LibusbJava.usb_set_configuration(usb_dev_handle, configuration);
+        if (ret < 0) {
             setUsbDevHandle(0);
+            if (ret == LibusbJava.ERROR_BUSY) {
+                throw new USBBusyException(LibusbJava.usb_strerror());
+            }
             throw new USBException("LibusbJava.usb_set_configuration: "
                     + LibusbJava.usb_strerror());
         }
