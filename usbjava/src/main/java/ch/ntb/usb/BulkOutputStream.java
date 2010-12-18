@@ -2,7 +2,7 @@
  * Java libusb wrapper
  * Copyright (c) 2010 Stefano Fornari
  *
- * http://libusbjava.sourceforge.net
+ * http://code.google.com/p/usbjava
  * This library is covered by the LGPL, read LGPL.txt for details.
  */
 package ch.ntb.usb;
