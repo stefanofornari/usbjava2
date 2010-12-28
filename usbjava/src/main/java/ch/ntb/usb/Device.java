@@ -281,7 +281,7 @@ public class Device {
         this.setAltinterface(altinterface);
 
         if (usbDevHandle != 0) {
-            throw new USBException("device opened, close or reset first");
+            throw new USBBusyException("device opened, close or reset first");
         }
 
         setUsbDevice(initDevice(vendorId, productId, busName, filename));
