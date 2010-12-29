@@ -26,6 +26,7 @@ public class DeviceDatabase {
 
         Map<String, String> canonModels = new HashMap<String, String>();
         canonModels.put("317b", "EOS 1000D");
+        canonModels.put("3145", "EOS 450D");
 
         ManufacturerModels canon = new ManufacturerModels("Canon, Inc.");
         canon.addModels(canonModels);
