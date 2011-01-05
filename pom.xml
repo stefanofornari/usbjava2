@@ -94,8 +94,8 @@
     </build>
 
     <scm>
-        <connection>scm:git:git://github.com/stefanofornari/usbjava.git</connection>
-        <url>http://github.com/stefanofornari/usbjava/tree/master</url>
+        <connection>scm:git:git://github.com/stefanofornari/usbjava2.git</connection>
+        <url>http://github.com/stefanofornari/usbjava2/tree/master</url>
     </scm>
 
 <!--
