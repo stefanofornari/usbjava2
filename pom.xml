@@ -98,13 +98,12 @@
         <url>http://github.com/stefanofornari/usbjava2/tree/master</url>
     </scm>
 
-<!--
     <distributionManagement>
         <repository>
             <id>filesystem</id>
             <url>file:./target/deploy</url>
         </repository>
     </distributionManagement>
--->
+
 </project>
 
