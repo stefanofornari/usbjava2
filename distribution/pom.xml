@@ -29,11 +29,19 @@
             <groupId>usbjava2</groupId>
             <artifactId>libusbjava</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <type>so</type>
         </dependency>
         <dependency>
             <groupId>usbjava2</groupId>
             <artifactId>usbjava</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <!--
+            <exclusions>
+                <exclusion>
+                    <artifactId>
+                </exclusion>
+            </exclusions>
+            -->
         </dependency>
     </dependencies>
 
