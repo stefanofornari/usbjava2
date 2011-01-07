@@ -1,0 +1,21 @@
+<assembly>
+
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <directory>target</directory>
+            <outputDirectory>u</outputDirectory>
+            <lineEnding>unix</lineEnding>
+            <fileMode>0775</fileMode>
+            <includes>
+                <include>*.so</include>
+            </includes>
+        </fileSet>
+
+    </fileSets>
+
+</assembly>
