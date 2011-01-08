@@ -13,7 +13,6 @@
         <module>jniusbjava</module>
         <module>libusbjava</module>
         <module>usbjava</module>
-        <module>distribution</module>
     </modules>
 
     <dependencies>
