@@ -97,4 +97,12 @@
             -->
         </plugins>
     </reporting>
+
+    <distributionManagement>
+        <repository>
+            <id>filesystem</id>
+            <url>file:./target/deploy</url>
+        </repository>
+    </distributionManagement>
+
 </project>
