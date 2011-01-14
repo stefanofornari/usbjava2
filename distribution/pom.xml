@@ -60,7 +60,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>javausb2-${project.version}</finalName>
+                            <finalName>usbjava2-${project.version}</finalName>
                             <outputDirectory>target</outputDirectory>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
