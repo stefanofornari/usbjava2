@@ -4,7 +4,7 @@
     <groupId>usbjava2</groupId>
     <artifactId>usbjava</artifactId>
     <packaging>jar</packaging>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <name>USB Java Library</name>
     <url>http://code.google.com/p/usbjava/</url>
     <dependencies>
